@@ -38,7 +38,7 @@
 		<br>
 		<br>
 		<br>
-		<form action="${appRoot }/login" method="post">
+		<form action="${appRoot }/user/login" method="post">
 		
 			<div class="form-group">
 				<label for="exampleInputEmail1">ID</label> 
