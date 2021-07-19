@@ -52,12 +52,12 @@
 			
 			
 			$("#signbtn").on("click", function(){
-				if($("#id").val()==""){
+				if($("#userid").val()==""){
 					alert("아이디를 입력해주세요.");
 					$("#id").focus();
 					return false;
 				}
-				if($("#pw").val()==""){
+				if($("#userpw").val()==""){
 					alert("비밀번호를 입력해주세요.");
 					$("#pw").focus();
 					return false;
@@ -106,7 +106,7 @@
 	                <div class="form-group">
 	                    <label class="control-label" for="id">아이디</label>
 	                    <div class="input-group">
-	                    <input class="form-control" type="text" id="id" name="id" />
+	                    <input class="form-control" type="text" id="userid" name="userid" />
 							<button class="btn btn-outline-secondary" type="button"id="id-dup-btn">
 									중복 체크        
 							</button>
@@ -115,7 +115,7 @@
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pw">비밀번호</label>
-	                    <input class="form-control" type="password" id="pw" name="pw" />
+	                    <input class="form-control" type="password" id="userpw" name="userpw" />
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pwchk">비밀번호 재확인 </label>
