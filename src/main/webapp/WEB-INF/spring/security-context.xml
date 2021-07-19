@@ -13,10 +13,10 @@
 	<security:intercept-url pattern = "/secure/all" access="permitAll"/>
 	<security:intercept-url pattern = "/secure/user" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern = "/secure/admin" access="hasRole('ROLE_ADMIN')"/>
-	<security:form-login login-page="/main/login"/>
+	<security:form-login login-page="/main/login" default-target-url="/main/home"/>
 	<security:logout/>
 	<security:csrf disabled="true"/>
-	<security:remember-me data-source-ref="dataSource"/>
+	<security:remember-me data-source-ref="dataSource" />
 </security:http>
 
 <security:authentication-manager>
