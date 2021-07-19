@@ -76,7 +76,7 @@
 					<div class="form-group mt-5">							
 						<input id="lgbtn" class="btn" type="submit" value="로그인">
 					</div>
-					<div class="form-group form-check">
+					<div class="form-group form-check"><!-- remember-me 가 security 를 실행하는 원인 -->
 						<input name="remember-me" type="checkbox" class="form-check-input" id="checkbox1"/>
 						<label class="form-check-label" for="checkbox1">로그인 상태유지</label>
 					</div>

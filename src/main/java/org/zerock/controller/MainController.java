@@ -17,7 +17,10 @@ public class MainController {
 	public void main() {
 		log.info("home method");
 	}
-	
+	@RequestMapping("/mypage")
+	public void mypage() {
+		log.info("mypage method");
+	}
 	
 	//로그인 
 	@RequestMapping("/login")
