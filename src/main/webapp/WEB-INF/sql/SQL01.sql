@@ -10,6 +10,8 @@ CREATE table GH_User(
 	userid VARCHAR(50) PRIMARY key,
 	userpw VARCHAR(100) not null,
 	username VARCHAR(100) NOT NULL,
+    userEmail VARCHAR(100) NOT NULL,
+    userPhone VARCHAR(50) NOT NULL,
     regdate TIMESTAMP DEFAULT NOW(),
     updateDate TIMESTAMP DEFAULT NOW(),
     enabled TINYINT(1) DEFAULT 1
@@ -56,3 +58,4 @@ create table persistent_logins (
 );
 
 DESC persistent_logins;
+
