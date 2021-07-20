@@ -10,9 +10,12 @@
 	class="org.zerock.security.CustomUserDetailsService"></bean>
 
 <security:http>
+	<!-- 관련없음 
 	<security:intercept-url pattern = "/secure/all" access="permitAll"/>
 	<security:intercept-url pattern = "/secure/user" access="hasRole('ROLE_USER')"/>
 	<security:intercept-url pattern = "/secure/admin" access="hasRole('ROLE_ADMIN')"/>
+	-->
+	<security:http-basic/>
 	<security:form-login login-page="/main/login" default-target-url="/main/home"/>
 	<security:logout/>
 	<security:csrf disabled="true"/>
@@ -20,6 +23,7 @@
 </security:http>
 
 <security:authentication-manager>
+<!-- 프로바이더는 최소하나의 권한이 필요합니다. -->
 		<security:authentication-provider user-service-ref="customUserDetailsService">
 			<security:password-encoder ref="passwordEncoder"/>
 		</security:authentication-provider>

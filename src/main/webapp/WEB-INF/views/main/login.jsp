@@ -48,10 +48,7 @@
 					return false;
 				}
 				
-			});
-			
-				
-			
+			});					
 		})
 	</script>
 </head>

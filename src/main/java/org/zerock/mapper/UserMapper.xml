@@ -25,6 +25,7 @@
 	m.username username,
 	m.userEmail userEmail,
 	m.userPhone userPhone,
+	m.useradd useradd,
 	m.enabled enabled,
 	m.regdate regdate,
 	m.updateDate updateDate,
@@ -32,7 +33,7 @@
  FROM 
     GH_User m LEFT JOIN GH_User_auth a ON m.userid = a.userid
   WHERE
-    m.userid = #{userid}
+    m.userid = #{userid} AND enabled = 1
   
   </select>
   
@@ -42,6 +43,7 @@
   	<result property="userName" column="username" />
   	<result property="userEmail" column="userEmail" />
   	<result property="userPhone" column="userPhone" />
+  	<result property="useradd" column="useradd" />	
   	<result property="regdate" column="regdate" />
   	<result property="updateDate" column="updateDate" />
   	<result property="enabled" column="enabled" />

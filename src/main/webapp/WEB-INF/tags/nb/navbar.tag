@@ -30,7 +30,11 @@ $(function() {
 	     </sec:authorize>
 	     
 	     <sec:authorize access="isAuthenticated()">
-	      <li class="nav-item">
+	     <li class="nav-item p-2">
+			      	<sec:authentication property="principal.user.userName" />
+			      	<span style="color:#6d0d27;">님 반갑습니다 !</span>
+		</li>
+	     <li class="nav-item">
             <a class="nav-link" href="#" id="navbar-logout-link">로그아웃</a>
          </li>
          </sec:authorize>

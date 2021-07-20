@@ -20,6 +20,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public boolean insert(UserVO vo) {
+		// 보드 타입으로도 할 수 있음
 		// 패스워드 암호화
 		vo.setUserpw(encoder.encode(vo.getUserpw()));
 		int cnt = mapper.insert(vo);

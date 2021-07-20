@@ -7,6 +7,7 @@ import lombok.Data;
 
 @Data
 public class UserVO {
+	
 	private String userid;
 	private String userpw;
 	private String userName;
@@ -16,5 +17,7 @@ public class UserVO {
 	private Date updateDate;
 	private boolean enabled;
 	
+	//유저에있는권한들 
 	private List<AuthVO> authList;
+	
 }

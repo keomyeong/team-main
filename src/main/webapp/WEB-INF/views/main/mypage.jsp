@@ -2,6 +2,8 @@
 
 <%@ taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
+<% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
 <html>
@@ -9,11 +11,13 @@
 
 <%@ include  file = "/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>마이페이지 </title>
 </head>
 <body>
-<div class= "container">
-
-</div>
+	<div class="container">
+		<nb:navbar/>
+		
+		
+	</div>
 </body>
 </html>

@@ -29,6 +29,7 @@ public class MainController {
 	public void main() {
 		log.info("home method");
 	}
+	
 	@RequestMapping("/mypage")
 	public void mypage() {
 		log.info("mypage method");

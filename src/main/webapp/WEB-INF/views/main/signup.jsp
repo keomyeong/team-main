@@ -50,7 +50,6 @@
 				//messageElem.text("사용가능한 아이디 입니다.");					
 			//}
 			
-			
 			$("#signbtn").on("click", function(){
 				if($("#userid").val()==""){
 					alert("아이디를 입력해주세요.");
