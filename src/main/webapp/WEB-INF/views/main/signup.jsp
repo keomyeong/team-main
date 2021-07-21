@@ -49,6 +49,7 @@
 			//if(){
 				//messageElem.text("사용가능한 아이디 입니다.");					
 			//}
+			var pwReg = /^[A-za-z0-9]{4,12}$/g;
 			
 			$("#signbtn").click(function() {
 				if($("#userid1").val()==""){
@@ -61,6 +62,12 @@
 					$("#pw").focus();
 					return false;
 				}
+				if (!pwReg.test($("#userpw").val())){
+					alert("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
+					$("#userpw").focus();
+					return false;
+					
+				} 
 				if($("#userpw2").val()==""){
 					alert("비밀번호를 입력해주세요.");
 					$("#pwchk").focus();
@@ -149,8 +156,19 @@
 	$("#userpw, #userpw2").keyup(function() {
 		var pw1 = $("#userpw").val();
 		var pw2 = $("#userpw2").val();
-		var submitBtn = $("#signup-btn1");
+		
+		var messageElem = $("#pw-message");
+		var pwReg = /^[A-za-z0-9]{4,12}$/g;
+
 		passwordConfirm = false;
+		
+		if(pw1.length > 3){
+			messageElem.html("사용 가능 합니다");
+		}
+		else if (!pwReg.test($("#userpw").val())){
+			messageElem.html("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
+			
+		} 
 		
 		if (pw1 != pw2) {
 			$("#password-message").text("패스워드가 일치하지 않습니다.");	
@@ -207,6 +225,8 @@
 	                <div class="form-group">
 	                    <label class="control-label" for="pw">비밀번호</label>
 	                    <input class="form-control" type="password" id="userpw" name="userpw" />
+	                    <small id="pw-message" class="form-text"></small>
+	                    
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pwchk">비밀번호 재확인 </label>

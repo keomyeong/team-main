@@ -57,9 +57,10 @@
 				// 자바스크립트 정규표현식
 				var CRNReg = /^[0-9]{10,13}$/g;
 				var NumReg = /^[0-9]{8,11}$/g;
-				 
+				var pwReg = /^[A-za-z0-9]{4,12}$/g;
+				
 				if (!CRNReg.test($("#CompanyRegistrationNumber").val())){
-					alert("사업자번호는 -제외한 숫자만 입력하여야 합니다.");
+					alert("사업자번호는 -제외한 10 ~ 13숫자만 입력하여야 합니다.");
 					$("#CompanyRegistrationNumber").focus();
 					return false;
 				}
@@ -79,16 +80,25 @@
 					$("#pw").focus();
 					return false;
 				}
+				
+				if (!pwReg.test($("#userpw").val())){
+					alert("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
+					$("#userpw").focus();
+					return false;
+					
+				} 
+				
 				if($("#userpw2").val()==""){
 					alert("비밀번호를 입력해주세요.");
 					$("#pwchk").focus();
 					return false;
-				}
+				}								
 				if($("#userName").val()==""){
 					alert("성명을 입력해주세요.");
 					$("#userName").focus();
 					return false;
 				}
+				
 				if($("#userEmail").val()==""){
 					alert("이메일을 입력해주세요.");
 					$("#userEmail").focus();
@@ -127,7 +137,7 @@
 			
 			
 		} else if(!idReg.test($("#userid1").val())){
-			messageElem.text("아이디는 영문자로 시작하는 5 ~ 10자 영문자 또는 숫자이어야 합니다.");
+			messageElem.html("※ 다시 입력해주세요"+"<br>"+"아이디는 영문자로 시작하는 5 ~ 10자 영문자 또는 숫자이어야 합니다.");
 			
 		} else {
 			// 아이디가 입력되어있을 때
@@ -161,8 +171,19 @@
 	$("#userpw, #userpw2").keyup(function() {
 		var pw1 = $("#userpw").val();
 		var pw2 = $("#userpw2").val();
-		var submitBtn = $("#signup-btn1");
+		
+		var messageElem = $("#pw-message");
+		var pwReg = /^[A-za-z0-9]{4,12}$/g;
+
 		passwordConfirm = false;
+		
+		if(pw1.length > 3){
+			messageElem.text("사용 가능 합니다");
+		}
+		else if (!pwReg.test($("#userpw").val())){
+			messageElem.text("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
+			
+		} 
 		
 		if (pw1 != pw2) {
 			$("#password-message").text("패스워드가 일치하지 않습니다.");	
@@ -221,6 +242,8 @@
 	                	<label class="control-label" for="pw">비밀번호</label>
 	                    <input class="form-control" type="password" id="userpw" name="userpw"/>
 	                </div>
+	                		<small id="pw-message" class="form-text"></small>
+	                
 	                <div class="form-group">
 	                	<label class="control-label" for="pwchk">비밀번호 확인 </label>
 	                    <input class="form-control" type="password" id="userpw2" name="pwchk"/>
