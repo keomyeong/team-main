@@ -13,6 +13,7 @@ public class UserVO {
 	private String userName;
 	private String userEmail;
 	private String userPhone;
+	private String CompanyRegistrationNumber;
 	private Date regdate;
 	private Date updateDate;
 	private boolean enabled;

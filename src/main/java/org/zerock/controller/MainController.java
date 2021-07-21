@@ -1,10 +1,13 @@
 package org.zerock.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.UserVO;
 import org.zerock.service.UserService;
@@ -67,6 +70,40 @@ public class MainController {
 			}
 			
 		}
+		//아이디 중복 확인
+		@GetMapping("/dup")
+		@ResponseBody
+		public ResponseEntity<String> duplicate(String id) {
+			log.info("duplicate method");
+			
+			// 서비스 일 시키고
+			UserVO vo = service.read(id);
+			
+			if (vo == null) {
+				return new ResponseEntity<>("success", HttpStatus.OK);
+			} else {
+				return new ResponseEntity<> ("exist", HttpStatus.OK);
+			}
+			
+		}
+		//회원가입 B
+		@RequestMapping(value = "/signupB", method = RequestMethod.GET)
+		public void signupB() {
+			log.info(" singupBG method");
+		}
+		//회원가입 B
+		@RequestMapping(value = "/signupB", method = RequestMethod.POST)
+		public String signupB(UserVO vo, RedirectAttributes rttr) {
+			log.info(" singupBP method");
+			
+			boolean ok = service.insert2(vo);
+			
+			if (ok) {
+				return "redirect:/main/home";
+			} else {
+				return "redirect:/main/signupB?error";
+			}
+		}	
 }
 
 

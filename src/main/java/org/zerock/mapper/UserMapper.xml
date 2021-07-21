@@ -6,9 +6,9 @@
 <mapper namespace="org.zerock.mapper.UserMapper">
 <insert id="insert">
   	INSERT INTO GH_User
-  	(userid, userpw, username, userEmail, userPhone)
+  	(userid, userpw, username, userEmail, userPhone, CompanyRegistrationNumber)
   	VALUES 
-  	(#{userid}, #{userpw}, #{userName}, #{userEmail}, #{userPhone})
+  	(#{userid}, #{userpw}, #{userName}, #{userEmail}, #{userPhone}, #{CompanyRegistrationNumber})
   </insert>
   
   <insert id="insertAuth">
@@ -25,6 +25,7 @@
 	m.username username,
 	m.userEmail userEmail,
 	m.userPhone userPhone,
+	m.CompanyRegistrationNumber CompanyRegistrationNumber,
 	m.useradd useradd,
 	m.enabled enabled,
 	m.regdate regdate,
@@ -43,6 +44,7 @@
   	<result property="userName" column="username" />
   	<result property="userEmail" column="userEmail" />
   	<result property="userPhone" column="userPhone" />
+  	<result property="CompanyRegistrationNumber" column="CompanyRegistrationNumber" />
   	<result property="useradd" column="useradd" />	
   	<result property="regdate" column="regdate" />
   	<result property="updateDate" column="updateDate" />

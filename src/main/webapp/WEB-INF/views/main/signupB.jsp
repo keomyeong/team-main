@@ -1,6 +1,7 @@
 <%@ page contentType="text/html; charset=UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+
+<%@ taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
 
 <!DOCTYPE html>
@@ -51,6 +52,23 @@
 			//}
 			
 			$("#signbtn").click(function() {
+				
+				// 사업자 번호 및 연락처 숫자만 입력하게 하기
+				// 자바스크립트 정규표현식
+				var CRNReg = /^[0-9]{10,13}$/g;
+				var NumReg = /^[0-9]{8,11}$/g;
+				 
+				if (!CRNReg.test($("#CompanyRegistrationNumber").val())){
+					alert("사업자번호는 -제외한 숫자만 입력하여야 합니다.");
+					$("#CompanyRegistrationNumber").focus();
+					return false;
+				}
+				
+				if($("#CompanyRegistrationNumber").val()==""){
+					alert("사업자등록번호 입력해주세요.");
+					$("#CompanyRegistrationNumber").focus();
+					return false;
+				}
 				if($("#userid1").val()==""){
 					alert("아이디를 입력해주세요.");
 					$("#id").focus();
@@ -82,17 +100,11 @@
 					return false;
 				}
 				
-				// 사업자 번호 및 연락처 숫자만 입력하게 하기
-				// 자바스크립트 정규표현식
-				var NumReg = /^[0-9]{11}$/g;
-				
-				 
 				if (!NumReg.test($("#userPhone").val())){
-					alert("전화번호는 -제외한 11자리 숫자만 입력하여야 합니다.");
+					alert("전화번호는 -제외한 숫자만 입력하여야 합니다.");
 					$("#userPhone").focus();
 					return false;
 				}
-				
 			});
 		})
 			
@@ -115,7 +127,7 @@
 			
 			
 		} else if(!idReg.test($("#userid1").val())){
-			messageElem.html("※ 다시 입력해주세요"+"<br>"+"아이디는 영문자로 시작하는 5 ~ 10자 영문자 또는 숫자이어야 합니다.");
+			messageElem.text("아이디는 영문자로 시작하는 5 ~ 10자 영문자 또는 숫자이어야 합니다.");
 			
 		} else {
 			// 아이디가 입력되어있을 때
@@ -166,8 +178,6 @@
 		// submit 버튼 disable/enalbe 토글
 		toggleEnableSubmit();
 	});
-	
-	// 리무브 어트리 ,  생성 어트리 로 ->> 디스어블 끄고 켜고
 	function toggleEnableSubmit() {
 		if (passwordConfirm && canUseId) {
 			$("#signbtn").removeAttr("disabled");
@@ -175,7 +185,6 @@
 			$("#signbtn").attr("disabled", "disabled");
 		}
 	}
-
 	
 });
 	</script>
@@ -195,44 +204,49 @@
 						</h4>
 					</div>
 	                <div class="form-group">
+	                	<label class="control-label" for="CompanyRegistrationNumber">사업자등록번호</label>
+	                    <input class="form-control" type="text" id="CompanyRegistrationNumber" name="CompanyRegistrationNumber" placeholder="- 제외한 숫자만 입력"/>
+	                </div>
+	                <div class="form-group">
 	                    <label class="control-label" for="id">아이디</label>
-	                    <div class="input-group"> <!-- 왜 userid와 username이 같으면 안되는지 -->
-	                    <input class="form-control" type="text" id="userid1" name="userid" />
+	                 <div class="input-group"> <!-- 왜 userid와 username이 같으면 안되는지 -->
+	                    <input class="form-control" type="text" id="userid1" name="userid"/>
 							<button class="btn btn-outline-secondary" type="button"id="id-dup-btn">
 									중복 체크        
 							</button>
-						</div>
+					</div>
 							<small id="id-message" class="form-text">아이디는 영문자로 시작하는 5 ~ 10자 영문자 또는 숫자이어야 합니다.</small>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="pw">비밀번호</label>
-	                    <input class="form-control" type="password" id="userpw" name="userpw" />
+	                	<label class="control-label" for="pw">비밀번호</label>
+	                    <input class="form-control" type="password" id="userpw" name="userpw"/>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="pwchk">비밀번호 재확인 </label>
-	                    <input class="form-control" type="password" id="userpw2" name="pwchk" />
+	                	<label class="control-label" for="pwchk">비밀번호 확인 </label>
+	                    <input class="form-control" type="password" id="userpw2" name="pwchk"/>
 	                    <small id="password-message" class="form-text text-danger"></small>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="userName">이름</label>
-	                    <input class="form-control" type="text" id="userName" name="userName" />
+	                	<label class="control-label" for="userName">이름</label>
+	                    <input class="form-control" type="text" id="userName" name="userName"/>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="userEmail">이메일</label>
+	                	<label class="control-label" for="userEmail">이메일</label>
 	                    <input class="form-control" type="email"  id="userEmail" name="userEmail" placeholder="name@example.com"/>
 	                </div>
 	                <div class="form-group">
-	                    <label class="control-label" for="userPhone">연락처</label>
+	                	<label class="control-label" for="userPhone">연락처</label>
 	                    <input class="form-control" type="text" id="userPhone" name="userPhone" placeholder="-제외한 숫자만 입력" />
 	                </div>
+	              
 	                <div class="form-group">
-	                    <button class="btn signupbtn" type="submit" id="signbtn">회원가입</button>
+	                	<button class="btn signupbtn" type="submit" id="signbtn">회원가입</button>               
 	                    <a class="btn bkbtn" style="float: right;" type="button" href="${appRoot}/main/login">취소</a>
 	                </div>
 	           
 					<div style = "text-align:right;">
 					<nav class="nav flex-column">
-  					<a class="nav-link active" href="${appRoot }/main/signupB"><i class="fas fa-user-tie"></i> 혹시 기업회원이신가요?</a>
+  					<a class="nav-link active" href="${appRoot }/main/signup"><i class="fas fa-user-tie"></i> 혹시 일반회원이신가요?</a>
 					</nav>
 					</div>
 					

@@ -41,6 +41,7 @@
 	
 	<script>
 		$(document).ready(function(){
+		  	$("input[type=checkbox]").prop("checked", false);
 		  	$("#checkall").click(function(){
 		
 		        if($("#checkall").prop("checked")){

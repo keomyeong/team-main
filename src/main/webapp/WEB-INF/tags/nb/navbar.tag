@@ -31,7 +31,7 @@ $(function() {
 	     
 	     <sec:authorize access="isAuthenticated()">
 	     <li class="nav-item p-2">
-			      	<sec:authentication property="principal.user.userName" />
+			      	<sec:authentication property="principal.username" />
 			      	<span style="color:#6d0d27;">님 반갑습니다 !</span>
 		</li>
 	     <li class="nav-item">

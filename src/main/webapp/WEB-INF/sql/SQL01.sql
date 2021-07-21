@@ -3,7 +3,6 @@ use Gohome;
 create DATABASE Gohome;
 
 drop table GH_User;
-
 drop table GH_User_auth;
 
 CREATE table GH_User(
@@ -12,6 +11,8 @@ CREATE table GH_User(
 	username VARCHAR(100) NOT NULL,
     userEmail VARCHAR(100) NOT NULL,
     userPhone VARCHAR(50) NOT NULL,
+    useradd varchar(100),
+    CompanyRegistrationNumber varchar(100),
     regdate TIMESTAMP DEFAULT NOW(),
     updateDate TIMESTAMP DEFAULT NOW(),
     enabled TINYINT(1) DEFAULT 1
