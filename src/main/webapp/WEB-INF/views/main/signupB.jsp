@@ -177,12 +177,11 @@
 
 		passwordConfirm = false;
 		
-		if(pw1.length > 3){
-			messageElem.text("사용 가능 합니다");
-		}
-		else if (!pwReg.test($("#userpw").val())){
-			messageElem.text("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
+		if (!pwReg.test($("#userpw").val())){
+			messageElem.html("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
 			
+		} else if(pw1.length > 3){
+			messageElem.html("사용 가능 합니다");
 		} 
 		
 		if (pw1 != pw2) {

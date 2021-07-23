@@ -162,13 +162,13 @@
 
 		passwordConfirm = false;
 		
-		if(pw1.length > 3){
-			messageElem.html("사용 가능 합니다");
-		}
-		else if (!pwReg.test($("#userpw").val())){
+		
+		if (!pwReg.test($("#userpw").val())){
 			messageElem.html("비밀번호는  4 ~ 12자 사이의 영문자 또는 숫자이어야 합니다.");
 			
-		} 
+		} else if(pw1.length > 3){
+			messageElem.html("사용 가능 합니다");
+		}
 		
 		if (pw1 != pw2) {
 			$("#password-message").text("패스워드가 일치하지 않습니다.");	
@@ -193,6 +193,12 @@
 			$("#signbtn").attr("disabled", "disabled");
 		}
 	}
+	
+	$('#eye').on("mousedown", function(){
+        $('#userpw').attr('type',"text");
+    }).on('mouseup mouseleave', function() {
+        $('#userpw').attr('type',"password");
+    });
 
 	
 });
@@ -224,7 +230,7 @@
 	                </div>
 	                <div class="form-group">
 	                    <label class="control-label" for="pw">비밀번호</label>
-	                    <input class="form-control" type="password" id="userpw" name="userpw" />
+	                    <input class="form-control" type="password" id="userpw" name="userpw" />                  
 	                    <small id="pw-message" class="form-text"></small>
 	                    
 	                </div>
