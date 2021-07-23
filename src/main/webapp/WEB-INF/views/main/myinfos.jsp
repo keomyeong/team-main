@@ -36,7 +36,7 @@
 </head>
 <body>
 	<div class="container">	
-		<nb:navbar></nb:navbar>
+		<nb:navbar/>
 	
 		<div class="row">
 		  <div class="col-3">
@@ -93,7 +93,7 @@
 			                    <input  value="${uservo.useradd }" class="form-control" type="text" id="useradd" name="useradd" />
 			                </div>
 			                 <div class="input-group justify-content-between">
-		                    	<input class="btn btn-outline-secondary" type="submit" id="info-modify-btn" value="수정 " />
+		                    	<input class="btn btn-outline-secondary" type="submit" id="info-modify-btn" value="수정" />
 		                    	<button id="#notBt" class="btn btn-outline-secondary" type="button" > 취소  </button>
 							</div>
 		                </form>

@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -125,10 +126,11 @@ public class MainController {
 			model.addAttribute("uservo", uservo);
 			
 		}
+		
 		//비밀번호확인 후 정보페이지로 이동 
 		@PostMapping("/myinfos")
 		@PreAuthorize("isAuthenticated()")
-		public String checkpwMethod(Principal principal,Model model, String userpw) {
+		public String checkpwMethod(Principal principal,Model model, String userpwck) {
 			
 			log.info(principal.getName());
 			
@@ -137,26 +139,13 @@ public class MainController {
 			
 			String Encoderpw =uservo.getUserpw();
 			
-			PasswordEncoder encoder =new PasswordEncoder() {
-				
-				@Override
-				public boolean matches(CharSequence rawPassword, String encodedPassword) {
-					// TODO Auto-generated method stub
-					return false;
-				}
-				
-				@Override
-				public String encode(CharSequence rawPassword) {
-					// TODO Auto-generated method stub
-					return null;
-				}
-			};
+			BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
 			
 			
 			
 			String resultshow ="";
 			
-			if(encoder.matches(userpw,Encoderpw)) {
+			if(encoder.matches(userpwck,Encoderpw)) {
 				
 				log.info("입력한 비밀번호 일치 ");
 				resultshow= "/main/myinfos";

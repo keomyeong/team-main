@@ -72,7 +72,7 @@
 			      		<div class="form-group">
 		                    <label class="control-label" for="userpw">비밀번호</label>
 		                    <div class="input-group">
-		                    	<input class="form-control" type="password" id="userpw" name="userpw" />
+		                    	<input class="form-control" type="password" id="userpwck" name="userpwck" />
 								<input class="btn btn-outline-secondary" type="submit" id="pwbtn" value="확인"/> 
 							</div>
 		                </div>

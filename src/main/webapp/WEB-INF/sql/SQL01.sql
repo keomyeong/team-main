@@ -33,6 +33,13 @@ VALUEs ('admin', 'admin', 'admin');
 
 desc GH_User_auth;
 
+SELECT * FROM GH_User WHERE companyRegistrationNumber is NOT NULL;
+
+ SELECT * FROM 
+    GH_User g LEFT JOIN GH_User_auth a ON g.userid = a.userid
+  WHERE
+   a.auth = 'ROLE_BUSINESS';
+
 insert into GH_User_auth (userid, auth) values ('admin', 'ROLE_USER');
 
 SELECT 
