@@ -18,15 +18,15 @@ CREATE table GH_User(
     enabled TINYINT(1) DEFAULT 1
 );
 
-CREATE TABLE GH_User_auth (
-	id INT PRIMARY KEY AUTO_INCREMENT,
-	userid VARCHAR(50) NOT NULL,
-    auth VARCHAR(50) NOT NULL,
-    FOREIGN KEY (userid) REFERENCES GH_User(userid)
+CREATE TABLE GH_auth(
+id INT PRIMARY KEY AUTO_INCREMENT,
+userid VARCHAR(50) NOT NULL,
+auth VARCHAR(50) NOT NULL,
+FOREIGN KEY (userid) REFERENCES GH_User(userid)
 );
 
 SELECT * FROM GH_User;
-SELECT * FROM GH_User_auth;
+SELECT * FROM GH_auth;
 
 INSERT into GH_User (userid, userpw, username)
 VALUEs ('admin', 'admin', 'admin');
@@ -66,4 +66,15 @@ create table persistent_logins (
 );
 
 DESC persistent_logins;
+drop table GH_Message;
+SELECT * FROM GH_Message;
+
+CREATE TABLE GH_Message (
+	mno INT PRIMARY KEY AUTO_INCREMENT,
+    writer varchar(50) ,
+    reader varchar(50) ,
+    content varchar(256) ,
+	regdate TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (writer) REFERENCES GH_User(userid)
+);
 

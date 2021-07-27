@@ -41,12 +41,10 @@
 	
 	<context:component-scan base-package="org.zerock.service"></context:component-scan>
 	
-	<context:component-scan base-package="org.zerock.domain"></context:component-scan>
-	
 	<!-- transaction -->
 	<tx:annotation-driven/>
-	
 </beans>
+
 
 
 

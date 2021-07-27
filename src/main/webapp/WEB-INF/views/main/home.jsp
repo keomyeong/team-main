@@ -15,9 +15,15 @@
 <title>메인 페이지</title>
 </head>
 <body>
-		<div class="container">
-	<nb:navbar></nb:navbar>
-		<h1>메인페이지</h1>
-		</div>
+	<div class="container">
+		<nb:navbar></nb:navbar>			
+		<h1>메인페이지입니다 </h1>
+	</div>
+
+<c:if test="${not empty qweasd}">
+<script type="text/javascript">
+alert("${qweasd}");
+</script>
+</c:if>		
 </body>
 </html>

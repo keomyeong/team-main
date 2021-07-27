@@ -1,13 +1,16 @@
-<%@ page contentType="text/html; charset=UTF-8"%>
-<%@ page import="java.util.*"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
-<%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb"%>
+<%@ page contentType="text/html; charset=UTF-8" %>
+<%@ page import="java.util.*" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
+
+<% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
 <html>
 <head>
 <style type="text/css">
+
 	html, body {
 	    height: 100%;
 	    min-height: 100%;
@@ -48,7 +51,10 @@
 					return false;
 				}
 				
-			});					
+			});
+			
+				
+			
 		})
 	</script>
 </head>
@@ -61,8 +67,8 @@
             </div>
             
              <div class="row justify-content-center ">
-				<form class="col-5"  action="${appRoot }/login" method = "post">
-					<div class="form-group">
+				<form class="col-5"  action="${appRoot }/login" method="post" >
+					<div class="form-group"> 
 						<label for="idinput" ></label>				
 						<input id="idinput" class="form-control" name="username" placeholder="아이디 " />
 					</div>
@@ -73,7 +79,7 @@
 					<div class="form-group mt-5">							
 						<input id="lgbtn" class="btn" type="submit" value="로그인">
 					</div>
-					<div class="form-group form-check"><!-- remember-me 가 security 를 실행하는 원인 -->
+					<div class="form-group form-check">
 						<input name="remember-me" type="checkbox" class="form-check-input" id="checkbox1"/>
 						<label class="form-check-label" for="checkbox1">로그인 상태유지</label>
 					</div>
@@ -83,18 +89,18 @@
 				<hr>
 				<div class="row justify-content-center text-center m-2">
 					<div class="col-2">
-						<a href="#">
-							<small>아이디찾기  </small>
+						<a href="${appRoot }/main/findId" target="_blank">
+							아이디찾기
 						</a>
 					</div>
 					<div class="col-2">
-						<a href="#">
-							<small>비밀번호찾기  </small>
+						<a href="${appRoot }/main/findPw" target="_blank">
+							비밀번호찾기
 						</a>
 					</div>
 					<div class="col-2">
 						<a href="${appRoot }/main/tos">
-							<small>회원가입 </small>
+							회원가입
 						</a>
 					</div>
 					
