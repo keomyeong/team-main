@@ -1,5 +1,8 @@
 package org.zerock.service;
 
+import java.util.List;
+
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.MessageVO;
@@ -20,5 +23,12 @@ public class MessageServiceImpl implements MessageService {
         
         return cnt == 1;
     }
+
+	
+
+	@Override
+	public List<MessageVO> getList() {
+		return mapper.getList();
+	}
 
 }

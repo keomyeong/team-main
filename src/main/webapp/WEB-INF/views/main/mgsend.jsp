@@ -45,20 +45,12 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${list }" var="board">
+            <c:forEach items="${list }" var="message">
                 <tr>
-                    <td>${board.bno }</td>
-                    <td>
-                    <c:url value="/main/get" var="getUrl">
-                        <c:param name="mno" value="${board.mno }" />
-                        <c:param name="content" value="${board.content }" />
-                        <c:param name="reader" value="${board.reader }" />
-                        <c:param name="regdate" value="${board.regdate }"    />
-                    </c:url>
-                    <a href="${getUrl}"> ${board.content } </a>
-                    </td> 
-                    <td>${board.reader }</td>
-                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/></td>                 
+                    <td>${message.mno }</td>
+                    <td>${message.content }</td> 
+                    <td>${message.reader }</td>
+                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${message.regdate }"/></td>                 
                 </tr>
             </c:forEach>
         </tbody>

@@ -2,6 +2,8 @@ package org.zerock.controller;
 
 import java.security.Principal;
 
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 
@@ -22,9 +24,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MessageVO;
-import org.zerock.domain.Criteria;
 import org.zerock.domain.UserVO;
 import org.zerock.security.domain.CustomUser;
+import org.zerock.service.MessageService;
 import org.zerock.service.UserService;
 
 
@@ -41,6 +43,9 @@ public class MainController {
 
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
+	
+	@Setter(onMethod_ = @Autowired)
+	private MessageService messageservice;
 	
 	
 	//메인 홈 
@@ -334,12 +339,29 @@ public class MainController {
           log.info("mgreceive method");
 
       }
-      @RequestMapping("/mgsend")
-      public void mgsend () {
-          log.info("mgreceive method");
-
-      }
       
+      
+//      @GetMapping("/mgsend")
+//  		public void list(@ModelAttribute("cri") Criteria cri, Model model) {
+//  		log.info("mgsend");
+//  		int total = messageservice.getTotal(cri);
+//  		
+//  		// service getList() 실행 결과를
+//  		List<MessageVO> list = messageservice.getList(cri);
+//  		// model에 attribute로 넣고
+//  		model.addAttribute("list", list);
+//  		model.addAttribute("pageMaker", new PageDTO(cri, total));
+//  		
+//  		// view로 포워드
+//  	}
+      @GetMapping("/mgsend")
+		public void list(MessageVO vo, Model model) {
+		log.info("mgsend");
+		List<MessageVO> list = messageservice.getList();
+		model.addAttribute("list", list);
+		log.info("success");
+		
+	}
       
 
 	

@@ -67,7 +67,7 @@ create table persistent_logins (
 
 DESC persistent_logins;
 drop table GH_Message;
-SELECT * FROM GH_Message;
+SELECT * FROM GH_Mesidsage;
 
 CREATE TABLE GH_Message (
 	mno INT PRIMARY KEY AUTO_INCREMENT,

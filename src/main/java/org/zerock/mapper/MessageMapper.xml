@@ -12,5 +12,9 @@
   	VALUES (#{writer}, #{reader}, #{content})
   </insert>
 
+
+  <select id="getList" resultType ="org.zerock.domain.MessageVO">
+  SELECT * FROM GH_Message WHERE writer = #{writer} order by mno desc
+  </select>
     
 </mapper>

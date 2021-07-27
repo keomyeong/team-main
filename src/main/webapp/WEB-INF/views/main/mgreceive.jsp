@@ -32,56 +32,37 @@
 	</nav>
 </div>
 <body>
-    <h2>받은 쪽지함</h2>
+
+    <h2>받는 쪽지함</h2>
     <table class="table table-striped">
         <thead>
             <tr>
                 <th>번호</th>
-                <th>제목</th>
-                <th>작성자</th>
+                <th>내용</th>
+                <th>보낸사람</th>
                 <th>작성일</th>
-                <%--
-                <th>수정일</th>
-                 --%>
+  
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${list }" var="board">
+            <c:forEach items="${list }" var="message">
                 <tr>
                     <td>${board.bno }</td>
                     <td>
-
-                    <c:url value="/board/get" var="getUrl">
-                        <c:param name="bno" value="${board.bno }" />
-                        <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
-                        <c:param name="amount" value="${pageMaker.cri.amount }" />
-                        <c:param name="type" value="${pageMaker.cri.type }"    />
-                        <c:param name="keyword" value="${pageMaker.cri.keyword }" />
+                    <c:url value="/main/get" var="getUrl">
+                        <c:param name="mno" value="${message.mno }" />
+                        <c:param name="content" value="${message.content }" />
+                        <c:param name="reader" value="${message.writer }" />
+                        <c:param name="regdate" value="${message.regdate }"    />
                     </c:url>
-
-                    <a href="${getUrl}">
-                        ${board.title } 
-                    </a>
-                    <c:if test="${board.replyCnt > 0 }">
-                        <i class="far fa-comment-dots"></i> ${board.replyCnt }
-                    </c:if>
-
-
-                    </td>
-                    <td>${board.writerName }</td>
-                    <td>
-      <%--                   <fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/> --%>
-                    </td>
-                    <%--
-                    <td>
-                        <fmt:formatDate pattern="yyyy-MM-dd" value="${board.updateDate }"/>
-                    </td>
-                     --%>
+                    <a href="${getUrl}"> ${board.content } </a>
+                    </td> 
+                    <td>${board.reader }</td>
+                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${board.regdate }"/></td>                 
                 </tr>
             </c:forEach>
         </tbody>
     </table>
-</div>
 </div>
 </body>
 </html>
