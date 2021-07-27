@@ -2,6 +2,7 @@ package org.zerock.controller;
 
 import java.security.Principal;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
@@ -12,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.MessageVO;
 import org.zerock.domain.UserVO;
-import org.zerock.service.BoardService;
+import org.zerock.service.MessageService;
 import org.zerock.service.UserService;
 
 import lombok.Setter;
@@ -27,7 +28,7 @@ public class BoardController {
         private UserService userservice;
 
         @Setter(onMethod_=@Autowired)
-        private BoardService boardservice;
+        private MessageService messageservice;
 
         @GetMapping("/usedBoard")
         @PreAuthorize("isAuthenticated()")
@@ -43,7 +44,7 @@ public class BoardController {
         public String usedBoardPost(MessageVO vo, RedirectAttributes rttr) {
             log.info("usedBoardPost method");
 
-            boolean success = boardservice.mesinsert(vo);
+            boolean success = messageservice.mesinsert(vo);
             
             if (success) {
             	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");

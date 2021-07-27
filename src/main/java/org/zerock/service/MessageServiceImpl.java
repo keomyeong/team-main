@@ -3,15 +3,15 @@ package org.zerock.service;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.MessageVO;
-import org.zerock.mapper.BoardMapper;
+import org.zerock.mapper.MessageMapper;
 
 import lombok.Setter;
 
 @Service
-public class BoardServiceImpl implements BoardService {
+public class MessageServiceImpl implements MessageService {
 
     @Setter(onMethod_ = @Autowired)
-    private BoardMapper mapper;
+    private MessageMapper mapper;
 
     @Override
     public boolean mesinsert(MessageVO vo) {
