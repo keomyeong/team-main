@@ -334,33 +334,24 @@ public class MainController {
 		return "main/findPw";	
 	}
 	
-	  @RequestMapping("/mgreceive")
-      public void mgreceive () {
-          log.info("mgreceive method");
+	 
+      
+      
 
-      }
-      
-      
-//      @GetMapping("/mgsend")
-//  		public void list(@ModelAttribute("cri") Criteria cri, Model model) {
-//  		log.info("mgsend");
-//  		int total = messageservice.getTotal(cri);
-//  		
-//  		// service getList() 실행 결과를
-//  		List<MessageVO> list = messageservice.getList(cri);
-//  		// model에 attribute로 넣고
-//  		model.addAttribute("list", list);
-//  		model.addAttribute("pageMaker", new PageDTO(cri, total));
-//  		
-//  		// view로 포워드
-//  	}
-      @GetMapping("/mgsend")
-		public void list(MessageVO vo, Model model) {
+        @GetMapping("/mgsend")
+		public void listsend(MessageVO vo, Model model) {
 		log.info("mgsend");
-		List<MessageVO> list = messageservice.getList();
-		model.addAttribute("list", list);
-		log.info("success");
-		
+		List<MessageVO> list = messageservice.getListSend(vo);
+		model.addAttribute("listsend", list);
+
+	}
+        @GetMapping("/mgreceive")
+		public void listrecevie(MessageVO vo, Model model) {
+		log.info("mgsend");
+		List<MessageVO> list = messageservice.getListReceive(vo);
+		model.addAttribute("listReceive", list);
+		log.info("ssss");
+
 	}
       
 

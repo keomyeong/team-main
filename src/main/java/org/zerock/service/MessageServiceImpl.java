@@ -27,8 +27,15 @@ public class MessageServiceImpl implements MessageService {
 	
 
 	@Override
-	public List<MessageVO> getList() {
-		return mapper.getList();
+	public List<MessageVO> getListSend(MessageVO vo) {
+		return mapper.getListSend(vo);
+	}
+
+
+
+	@Override
+	public List<MessageVO> getListReceive(MessageVO vo) {
+		return mapper.getListReceive(vo);
 	}
 
 }

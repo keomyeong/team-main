@@ -3,6 +3,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
@@ -14,18 +15,20 @@
 <body>
 <div class="container">
 <nb:navbar></nb:navbar>
+<sec:authentication property="principal.user" var="user"/>
 	
 <div class="d-flex justify-content-center p-0">
 	<nav class="navbar navbar-expand-sm navbar-light">
 		<ul  class="navbar-nav mr-auto text-center"> 
 			<li class="nav-item">
 	       			 <font size="4px">
-		       			 <a class="nav-link" href="${appRoot }/main/mgreceive">받은쪽지함 </a>
+		       			 <a class="nav-link" href="${appRoot }/main/mgreceive?writer=${user.userid}">받은쪽지함 </a>
 	       			 </font>
 	     	</li>
 	     	<li class="nav-item">
 	     			<font size="4px">
-	       			 	<a class="nav-link" href="${appRoot }/main/mgsend">보낸쪽지함 </a>	     			
+	       			 	<a class="nav-link" href="${appRoot }/main/mgsend?writer=${user.userid}">보낸쪽지함 </a>	     			
+	       			 	
 	     			</font>
 	     	</li>	
 		</ul>
@@ -45,12 +48,12 @@
             </tr>
         </thead>
         <tbody>
-            <c:forEach items="${list }" var="message">
+            <c:forEach items="${listsend }" var="message" varStatus="status">
                 <tr>
-                    <td>${message.mno }</td>
+                    <td>${message.mno}<!-- 확인용 mno --> ${status.count }</td>
                     <td>${message.content }</td> 
                     <td>${message.reader }</td>
-                    <td><fmt:formatDate pattern="yyyy-MM-dd" value="${message.regdate }"/></td>                 
+                    <td><fmt:formatDate pattern="yyyy-MM-dd [hh:mm]" value="${message.regdate }"/></td>                 
                 </tr>
             </c:forEach>
         </tbody>

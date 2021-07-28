@@ -40,7 +40,6 @@ public class BoardController {
 
         }
         @PostMapping("/usedBoard")
-        @PreAuthorize("isAuthenticated()")
         public String usedBoardPost(MessageVO vo, RedirectAttributes rttr) {
             log.info("usedBoardPost method");
 

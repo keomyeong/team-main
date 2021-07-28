@@ -51,7 +51,8 @@ $(function() {
 		     	</sec:authorize> 
 		     	<sec:authorize access="isAuthenticated()">
 		         <li class="nav-item">
-		       			 <a class="nav-link" href="${appRoot }/main/mgreceive">쪽지함 </a>
+		        		 <sec:authentication property="principal.user" var="user"/>
+		       			 <a class="nav-link" href="${appRoot }/main/mgreceive?writer=${user.userid}">쪽지함 </a>
 		     		 </li>
 		     	</sec:authorize> 
 			</ul>

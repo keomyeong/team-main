@@ -13,8 +13,12 @@
   </insert>
 
 
-  <select id="getList" resultType ="org.zerock.domain.MessageVO">
+  <select id="getListSend" resultType ="org.zerock.domain.MessageVO">
   SELECT * FROM GH_Message WHERE writer = #{writer} order by mno desc
+  </select>
+  
+  <select id="getListReceive" resultType ="org.zerock.domain.MessageVO">
+  SELECT * FROM GH_Message WHERE reader = #{writer} order by mno desc
   </select>
     
 </mapper>
