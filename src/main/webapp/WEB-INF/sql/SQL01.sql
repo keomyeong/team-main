@@ -67,7 +67,7 @@ create table persistent_logins (
 
 DESC persistent_logins;
 drop table GH_Message;
-SELECT * FROM GH_Mesidsage;
+SELECT * FROM GH_Message;
 
 CREATE TABLE GH_Message (
 	mno INT PRIMARY KEY AUTO_INCREMENT,
@@ -77,4 +77,9 @@ CREATE TABLE GH_Message (
 	regdate TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (writer) REFERENCES GH_User(userid)
 );
-
+insert into GH_Message (writer, reader, content) values ('qwert', 'admin', 'admin');
+insert into GH_Message (writer, reader, content) values ('admin', 'admin', 'admin');
+insert into GH_Message (writer, reader, content) values ('qwert', 'qwert', 'qwert');
+insert into GH_Message (writer, reader, content) values ('admin', 'qwert', 'admin');
+ SELECT * FROM GH_Message WHERE writer = "qwert" order by mno desc;
+SELECT * FROM GH_Message WHERE reader = "qwert" order by mno desc;
