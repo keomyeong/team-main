@@ -35,6 +35,11 @@
 	       			 	<a class="nav-link" href="${appRoot }/main/mgsend?writer=${user.userid}">보낸쪽지함 </a>	     			
 	     			</font>
 	     	</li>	
+	     	<li class="nav-item">
+	     			<font size="4px">
+	       			 	<a class="nav-link" type = "button" data-toggle="modal" data-target="#call3"> 쪽지 보내기 </a>	     			
+	     			</font>
+	     	</li>
 		</ul>
 	</nav>
 </div>
@@ -57,9 +62,10 @@
 									<!-- ${message.mno} 확인용 mno --> ${status.count }
 								</td>
 			                    <td id="td">
-			                    <button type="button" class="btn" id="cnbtn1" data-toggle="modal" data-target="#call1">
+			                    <a type="button" class="nav-link active" id="cnbtn1" data-toggle="modal" data-target="#call1">
 								${message.content }
-								</button>
+								</a>
+			                    </td>
 								<td id="td" style="text-align: center">${message.reader }</td>
 								<td id="td" style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd [hh:mm]" value="${message.regdate }" /></td>
 							</tr>
@@ -74,15 +80,14 @@
 										</button>
 								</div>
 								<div class="modal-body">
-									<form>
 										<div class="form-group">
 											<label for="writer" class="col-form-label">보내는 사람</label>
-											<input type="text" readonly class="form-control" id="writer" value="${message.reader}" name="writer">
+											<input type="text" readonly class="form-control" id="writer" value="${uservo.userid}" name="writer">
 										</div>
 		
 										<div class="form-group">
 											<label for="reader" class="col-form-label">받는 사람</label>
-											<input type="text" readonly class="form-control" id="reader" name="reader" value="${uservo.userid}">
+											<input type="text" readonly class="form-control" id="reader" name="reader" value="${message.reader}">
 										</div>
 		
 										<div class="form-group">
@@ -94,7 +99,6 @@
 											<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close1">Close</button>
 										</div>
 			
-									</form>					
 								</div>
 								</div>
 							</div>

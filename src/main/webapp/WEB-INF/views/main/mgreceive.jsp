@@ -35,6 +35,11 @@
 	       			 	<a class="nav-link" href="${appRoot }/main/mgsend?writer=${user.userid}">보낸쪽지함 </a>	     			
 	     			</font>
 	     	</li>	
+	     	<li class="nav-item">
+	     			<font size="4px">
+	       			 	<a class="nav-link" type = "button" data-toggle="modal" data-target="#call3"> 쪽지 보내기 </a>	     			
+	     			</font>
+	     	</li>
 		</ul>
 	</nav>
 </div>
@@ -56,47 +61,43 @@
                 <tr>
                     <td id="td"style="text-align :center"><!-- ${message.mno} 확인용 mno -->  ${status.count }</td>
                     <td id="td">
-                    <!-- a 링크로 버튼을 대신하여 쓰고 싶다 모달을 버튼으로 만들어야하는가 버튼은 class 가 있어서 이쁘지 아니하니 고민하자 -->
-                    <button type="button" class="btn" id="cnbtn1" data-toggle="modal" data-target="#call1">
+                    <a type="button" class="nav-link active" id="cnbtn1" data-toggle="modal" data-target="#call1">
 					${message.content }
-					</button>
+					</a>
                     </td> 
                     <td id="td"style="text-align :center">${message.writer }</td>
                     <td id="td"style="text-align :center"><fmt:formatDate pattern="yyyy-MM-dd [hh:mm]" value="${message.regdate }"/></td>
                 </tr>
                 <div class="modal fade" id="call1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-				<div class="modal-dialog">
-					<div class="modal-content">
-						<div class="modal-header">
-								<h5 class="modal-title" id="exampleModalLabel">보낸 쪽지함</h5>
-								<button type="button" class="close" data-dismiss="modal"
-									aria-label="Close">
-									<span aria-hidden="true">&times;</span>
-								</button>
-						</div>
-						<div class="modal-body">
-							<form>
-								<div class="form-group">
-									<label for="writer" class="col-form-label">보내는 사람</label>
-									<input type="text" readonly class="form-control" id="writer" value="${message.reader}" name="writer">
+						<div class="modal-dialog">
+							<div class="modal-content">
+								<div class="modal-header">
+										<h5 class="modal-title" id="exampleModalLabel">보낸 쪽지함</h5>
+										<button type="button" class="close" data-dismiss="modal"
+											aria-label="Close">
+											<span aria-hidden="true">&times;</span>
+										</button>
 								</div>
-
-								<div class="form-group">
-									<label for="reader" class="col-form-label">받는 사람</label>
-									<input type="text" readonly class="form-control" id="reader" name="reader" value="${uservo.userid}">
-								</div>
-
-								<div class="form-group">
-									<label for="content" class="col-form-label">내용</label>
-									<textarea class="form-control" readonly id="content" name="content">${message.content}</textarea>
-								</div>
+								<div class="modal-body">
+										<div class="form-group">
+											<label for="writer" class="col-form-label">보내는 사람</label>
+											<input type="text" readonly class="form-control" id="writer" value="${message.writer}" name="writer">
+										</div>
+		
+										<div class="form-group">
+											<label for="reader" class="col-form-label">받는 사람</label>
+											<input type="text" readonly class="form-control" id="reader" name="reader" value="${message.reader}">
+										</div>
+		
+										<div class="form-group">
+											<label for="content" class="col-form-label">내용</label>
+											<textarea class="form-control" readonly id="content" name="content">${message.content}</textarea>
+										</div>
 						 
 								<div class="modal-footer">
 									<button type="button" class="btn btn-light" data-dismiss="modal" id="close1">Close</button>
 									<button id="sendbtn" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#call2">답장하기</button>
-								</div>
-	
-							</form>					
+								</div>	
 						</div>
 						</div>
 					</div>
@@ -128,7 +129,7 @@
 
 										<div class="form-group">
 											<label for="reader" class="col-form-label">받는 사람</label>
-											<input type="text" readonly class="form-control" id="reader" name="reader" value="${message.writer}">
+											<input type="text"  class="form-control" id="reader" name="reader" value="${message.writer}">
 										</div>
 
 										<div class="form-group">
