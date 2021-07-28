@@ -1,7 +1,6 @@
 package org.zerock.controller;
 
 import java.security.Principal;
-
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -339,21 +338,41 @@ public class MainController {
       
 
         @GetMapping("/mgsend")
-		public void listsend(MessageVO vo, Model model) {
+		public void listsend(Principal principal, MessageVO vo, Model model) {
 		log.info("mgsend");
 		List<MessageVO> list = messageservice.getListSend(vo);
 		model.addAttribute("listsend", list);
-
-	}
+		
+		log.info("mgsendprincipal method");
+        log.info(principal.getName());
+        UserVO uservo = service.read(principal.getName());
+		model.addAttribute("uservo", uservo);
+        }
+        
         @GetMapping("/mgreceive")
-		public void listrecevie(MessageVO vo, Model model) {
+		public void listrecevie(Principal principal, MessageVO vo, Model model) {
 		log.info("mgsend");
 		List<MessageVO> list = messageservice.getListReceive(vo);
 		model.addAttribute("listReceive", list);
-		log.info("ssss");
 
-	}
-      
+		log.info("mgsendprincipal method");
+        log.info(principal.getName());
+        UserVO uservo = service.read(principal.getName());
+		model.addAttribute("uservo", uservo);
+
+        }
+        
+        @PostMapping("/mgreceive")
+        public String listreceviePost(MessageVO vo, RedirectAttributes rttr) {
+            log.info("listreceviePost method");
+            boolean success = messageservice.mesinsert(vo);
+            if (success) {
+            	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
+    		}
+           // 이부분이다 설명을 듣고 싶으면 mgreceive.jsp로 가라
+            return "redirect:/main/mgreceive";
+           
+        }
 
 	
 	

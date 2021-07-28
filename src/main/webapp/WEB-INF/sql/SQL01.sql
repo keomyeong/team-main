@@ -28,7 +28,7 @@ FOREIGN KEY (userid) REFERENCES GH_User(userid)
 SELECT * FROM GH_User;
 SELECT * FROM GH_auth;
 
-INSERT into GH_User (userid, userpw, username)
+INSERT  GH_User (userid, userpw, username)
 VALUEs ('admin', 'admin', 'admin');
 
 desc GH_User_auth;
