@@ -14,6 +14,16 @@
     #td { vertical-align : middle; }
 </style>
 <title>Insert title here</title>
+
+<script>
+$(function() {
+	$("#callsec").on("hidden.bs.modal", function() {
+		$("#reader3").val("");
+		$("#content3").val("");
+		console.log("모달 닫힘.")
+	});
+})
+</script>
 </head>
 <body>
 <div class="container">
@@ -39,7 +49,6 @@
 		</ul>
 	</nav>
 </div>
-<body>
 
     <h3>받는 쪽지함</h3>
     <table class="table table-striped">
@@ -91,7 +100,7 @@
 										</div>
 						 
 								<div class="modal-footer">
-									<button type="button" class="btn btn-light" data-dismiss="modal" id="close1">Close</button>
+									<button type="button" class="btn btn-light" data-dismiss="modal" >Close</button>
 									<button id="sendbtn${status.count }" type="button" class="btn btn-secondary" data-toggle="modal" data-target="#callse${status.count }">답장하기</button>
 								</div>	
 						</div>
@@ -103,6 +112,10 @@
 						$("#sendbtn${status.count }").click(function() {
 							$('#call${status.count }').modal("hide");
 						})
+						$("#callse${status.count }").on("hidden.bs.modal", function() {
+							$("#content${status.count }").val("");
+							console.log("모달 닫힘.")
+						});
 					})
 				</script>
 					<div class="modal fade" id="callse${status.count }" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -129,11 +142,11 @@
 
 										<div class="form-group">
 											<label for="content" class="col-form-label">내용</label>
-											<textarea class="form-control"  id="content" name="content"></textarea>
+											<textarea class="form-control"  id="content${status.count }" name="content"></textarea>
 										</div>
 									 
 										<div class="modal-footer">
-											<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+											<button type="button" class="btn btn-secondary" data-dismiss="modal" id="close1">Close</button>
 											<button id="sendbtn" type="submit" class="btn btn-light" >답장하기</button>
 										</div>		
 									</form>					
@@ -163,12 +176,12 @@
 	
 						<div class="form-group">
 							<label for="reader" class="col-form-label">받는 사람</label>
-							<input type="text"  class="form-control" id="reader" name="reader">
+							<input type="text"  class="form-control" id="reader3" name="reader">
 						</div>
 	
 						<div class="form-group">
 							<label for="content" class="col-form-label">내용</label>
-							<textarea class="form-control"  id="content" name="content"></textarea>
+							<textarea class="form-control"  id="content3" name="content"></textarea>
 						</div>
 					 
 						<div class="modal-footer">

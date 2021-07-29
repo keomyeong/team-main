@@ -16,6 +16,16 @@
     #td { vertical-align : middle; }
 </style>
 <title>Insert title here</title>
+<script>
+$(function() {
+	$("#callsec").on("hidden.bs.modal", function() {
+		$("#reader3").val("");
+		$("#content3").val("");
+		console.log("모달 닫힘.")
+	});
+})
+</script>
+
 </head>
 <body>
 <div class="container">
@@ -123,12 +133,12 @@
 	
 						<div class="form-group">
 							<label for="reader" class="col-form-label">받는 사람</label>
-							<input type="text"  class="form-control" id="reader" name="reader">
+							<input type="text"  class="form-control" id="reader3" name="reader">
 						</div>
 	
 						<div class="form-group">
 							<label for="content" class="col-form-label">내용</label>
-							<textarea class="form-control"  id="content" name="content"></textarea>
+							<textarea class="form-control"  id="content3" name="content"></textarea>
 						</div>
 					 
 						<div class="modal-footer">
