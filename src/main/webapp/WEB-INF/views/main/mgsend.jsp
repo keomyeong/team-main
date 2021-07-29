@@ -20,24 +20,22 @@
 <body>
 <div class="container">
 <nb:navbar></nb:navbar>
-<sec:authentication property="principal.user" var="user" />
-	
 <div class="d-flex justify-content-center p-0">
 	<nav class="navbar navbar-expand-sm navbar-light">
 		<ul  class="navbar-nav mr-auto text-center"> 
 			<li class="nav-item">
 	       			 <font size="4px">
-		       			 <a class="nav-link" href="${appRoot }/main/mgreceive?writer=${user.userid}">받은쪽지함 </a>
+		       			 <a class="nav-link" href="${appRoot }/main/mgreceive">받은쪽지함 </a>
 	       			 </font>
 	     	</li>
 	     	<li class="nav-item">
 	     			<font size="4px">
-	       			 	<a class="nav-link" href="${appRoot }/main/mgsend?writer=${user.userid}">보낸쪽지함 </a>	     			
+	       			 	<a class="nav-link" href="${appRoot }/main/mgsend">보낸쪽지함 </a>	     			
 	     			</font>
 	     	</li>	
 	     	<li class="nav-item">
 	     			<font size="4px">
-	       			 	<a class="nav-link" type = "button" data-toggle="modal" data-target="#call3"> 쪽지 보내기 </a>	     			
+	       			 	<a class="nav-link" type = "button" data-toggle="modal" data-target="#callsec"> 쪽지 보내기 </a>	     			
 	     			</font>
 	     	</li>
 		</ul>
@@ -62,14 +60,14 @@
 									<!-- ${message.mno} 확인용 mno --> ${status.count }
 								</td>
 			                    <td id="td">
-			                    <a type="button" class="nav-link active" id="cnbtn1" data-toggle="modal" data-target="#call1">
+			                    <a type="button" class="nav-link active" id="cnbtn1" data-toggle="modal" data-target="#call${status.count }">
 								${message.content }
 								</a>
 			                    </td>
 								<td id="td" style="text-align: center">${message.reader }</td>
 								<td id="td" style="text-align: center"><fmt:formatDate pattern="yyyy-MM-dd [hh:mm]" value="${message.regdate }" /></td>
 							</tr>
-		                <div class="modal fade" id="call1" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		                <div class="modal fade" id="call${status.count }" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
 						<div class="modal-dialog">
 							<div class="modal-content">
 								<div class="modal-header">
@@ -106,6 +104,47 @@
 						</c:forEach>
 					</tbody>
 				</table>
+	<div class="modal fade" id="callsec" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">쪽지 전송하기</h5>
+					<button type="button" class="close" data-dismiss="modal"
+						aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="${appRoot }/main/mgsend" method="post">
+						<div class="form-group">
+							<label for="writer" class="col-form-label">보내는 사람</label>
+							<input type="text" readonly class="form-control" id="writer" value="${uservo.userid}" name="writer">
+						</div>
+	
+						<div class="form-group">
+							<label for="reader" class="col-form-label">받는 사람</label>
+							<input type="text"  class="form-control" id="reader" name="reader">
+						</div>
+	
+						<div class="form-group">
+							<label for="content" class="col-form-label">내용</label>
+							<textarea class="form-control"  id="content" name="content"></textarea>
+						</div>
+					 
+						<div class="modal-footer">
+							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+							<button id="sendbtn" type="submit" class="btn btn-light" >답장하기</button>
+						</div>		
+					</form>					
+				</div>
+			</div>
+		</div>
 	</div>
+<c:if test="${not empty message}">
+<script type="text/javascript">
+alert("${message}");
+</script>
+</c:if>
+</div>
 </body>
 </html>

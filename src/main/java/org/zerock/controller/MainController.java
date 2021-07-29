@@ -338,8 +338,10 @@ public class MainController {
       
 
         @GetMapping("/mgsend")
+    	@PreAuthorize("isAuthenticated()")
 		public void listsend(Principal principal, MessageVO vo, Model model) {
 		log.info("mgsend");
+		vo.setWriter(principal.getName());
 		List<MessageVO> list = messageservice.getListSend(vo);
 		model.addAttribute("listsend", list);
 		
@@ -349,9 +351,21 @@ public class MainController {
 		model.addAttribute("uservo", uservo);
         }
         
+        @PostMapping("/mgsend")       
+        public String listsendPost(MessageVO vo, RedirectAttributes rttr) {
+            log.info("listsendPost method");
+            boolean success = messageservice.mesinsert(vo);
+            if (success) {
+            	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
+    		}
+            return "redirect:/main/mgsend";           
+        }
+        
         @GetMapping("/mgreceive")
+    	@PreAuthorize("isAuthenticated()")
 		public void listrecevie(Principal principal, MessageVO vo, Model model) {
 		log.info("mgsend");
+		vo.setWriter(principal.getName());
 		List<MessageVO> list = messageservice.getListReceive(vo);
 		model.addAttribute("listReceive", list);
 
@@ -359,7 +373,6 @@ public class MainController {
         log.info(principal.getName());
         UserVO uservo = service.read(principal.getName());
 		model.addAttribute("uservo", uservo);
-
         }
         
         @PostMapping("/mgreceive")
@@ -370,8 +383,7 @@ public class MainController {
             	rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. ");           	
     		}
            // 이부분이다 설명을 듣고 싶으면 mgreceive.jsp로 가라
-            return "redirect:/main/mgreceive";
-           
+            return "redirect:/main/mgreceive";           
         }
 
 	
