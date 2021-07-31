@@ -18,12 +18,16 @@
 <title>Insert title here</title>
 <script>
 $(function() {
-	$("#callsec").on("hidden.bs.modal", function() {
-		$("#reader3").val("");
-		$("#content3").val("");
-		console.log("모달 닫힘.")
-	});
-})
+	$("#callsec").on("show.bs.modal", function() {
+		$("#readerTh").val("");
+		$("#contentTh").val("");
+		$("#sendbtnTh").prop("disabled", true);
+		
+		$("#contentTh").keyup(function(){
+			$("#sendbtnTh").prop("disabled", false);	
+		})
+	})
+});
 </script>
 
 </head>
@@ -51,8 +55,6 @@ $(function() {
 		</ul>
 	</nav>
 </div>
-<body>
-
 				<h3>보낸 쪽지함</h3>
 				<table class="table table-striped">
 					<thead>
@@ -133,17 +135,17 @@ $(function() {
 	
 						<div class="form-group">
 							<label for="reader" class="col-form-label">받는 사람</label>
-							<input type="text"  class="form-control" id="reader3" name="reader">
+							<input type="text"  class="form-control" id="readerTh" name="reader">
 						</div>
 	
 						<div class="form-group">
 							<label for="content" class="col-form-label">내용</label>
-							<textarea class="form-control"  id="content3" name="content"></textarea>
+							<textarea class="form-control"  id="contentTh" name="content"></textarea>
 						</div>
 					 
 						<div class="modal-footer">
-							<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-							<button id="sendbtn" type="submit" class="btn btn-light" >답장하기</button>
+							<button type="button" class="btn btn-light" data-dismiss="modal">Close</button>
+							<button id="sendbtnTh" type="submit" class="btn btn-secondary" >답장하기</button>
 						</div>		
 					</form>					
 				</div>
@@ -151,8 +153,40 @@ $(function() {
 		</div>
 	</div>
 <c:if test="${not empty message}">
-<script type="text/javascript">
-alert("${message}");
+<script>
+	alert("${message}");
+	$(document).ready(function() {
+
+	var canUseId = false;
+	
+	$("#sendbtnTh").click(function() {
+		var idVal = $("#reader").val();
+		var messageElem = $("#id-message");
+		canUseId = false;
+		
+		if(idVal == "") {
+			messageElem.text("입력해주세요.");
+		} else {
+			var data = {id : idVal};
+			$.ajax({
+				type: "get",
+				url: "${appRoot }/main/dup",
+				data: data,
+				success: function (data) {
+					if (data == "success") {
+						console.log("전송 가능한 아이디");
+						canUseId = true;
+					} else if (data == "exist") {
+						console.log("전송 불가능한 아이디");
+					}
+					
+				}
+			})
+		}
+
+		})
+	})
+	
 </script>
 </c:if>
 </div>

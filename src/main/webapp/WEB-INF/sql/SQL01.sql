@@ -67,8 +67,9 @@ create table persistent_logins (
 
 DESC persistent_logins;
 drop table GH_Message;
-SELECT * FROM GH_Message;
 
+SELECT * FROM GH_Message ORDER by mno desc;
+DELETE from GH_Message WHERE mno = '40';
 CREATE TABLE GH_Message (
 	mno INT PRIMARY KEY AUTO_INCREMENT,
     writer varchar(50) ,
@@ -77,9 +78,9 @@ CREATE TABLE GH_Message (
 	regdate TIMESTAMP DEFAULT NOW(),
     FOREIGN KEY (writer) REFERENCES GH_User(userid)
 );
-insert into GH_Message (writer, reader, content) values ('qwert', 'admin', 'admin');
+insert into GH_Message (writer, reader, content) values ('qwert', 'qwert', '자기 자신에게 보내봤습니다.');
 insert into GH_Message (writer, reader, content) values ('admin', 'admin', 'admin');
-insert into GH_Message (writer, reader, content) values ('qwert', 'qwert', 'qwert');
-insert into GH_Message (writer, reader, content) values ('admin', 'qwert', 'admin');
+insert into GH_Message (writer, reader, content) values ('qwert', 'admin', '확인차보냈습니다');
+insert into GH_Message (writer, reader, content) values ('admin', 'qwert', '저는 어드민입니다');
  SELECT * FROM GH_Message WHERE writer = "qwert" order by mno desc;
 SELECT * FROM GH_Message WHERE reader = "qwert" order by mno desc;

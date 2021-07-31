@@ -6,7 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.MessageVO;
+import org.zerock.domain.UserVO;
 import org.zerock.mapper.MessageMapper;
+import org.zerock.mapper.UserMapper;
 
 import lombok.Setter;
 
@@ -15,10 +17,16 @@ public class MessageServiceImpl implements MessageService {
 
     @Setter(onMethod_ = @Autowired)
     private MessageMapper mapper;
-
+    @Setter(onMethod_ = @Autowired)
+    private UserMapper userMapper;
     @Override
     public boolean mesinsert(MessageVO vo) {
-        
+    	UserVO reader = userMapper.read(vo.getReader());
+    	
+    	if (reader == null) {
+    		return false;
+    	}
+    	
     	int cnt = mapper.mesinsert(vo);
         
         return cnt == 1;
