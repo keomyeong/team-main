@@ -1,5 +1,8 @@
 package org.zerock.domain;
 
+import lombok.Data;
+
+@Data
 public class ProductVO {
 	private int id;
 	private String title;

@@ -2,16 +2,18 @@
 
 <%@ taglib prefix = "c" uri ="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix = "fn" uri = "http://java.sun.com/jsp/jstl/functions" %>
-
+<%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
+<% request.setCharacterEncoding("utf-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
 
 <%@ include  file = "/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>장바구니</title>
 </head>
 <body>
+<nb:navbar/>
 <div class= "container">
 <div class="jumbotron">
     <h1 class="display-4">Carts</h1>
@@ -49,7 +51,7 @@
     </tr>
   </tfoot>
 </table>
-<form action="<c:url value='/orders' />" method="post">
+<form action="${appRoot }/gwpart/carts" method="post">
     <input name="id" type="hidden" value="${ cart.id }" type="hidden" />
     <button type="submit" class="btn btn-lg btn-block btn-primary">주문하기</button>
 </form>
