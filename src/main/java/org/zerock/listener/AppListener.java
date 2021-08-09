@@ -1,6 +1,6 @@
 package org.zerock.listener;
 
-import javax.servlet.ServletContext;	
+import javax.servlet.ServletContext;
 import javax.servlet.ServletContextEvent;
 import javax.servlet.ServletContextListener;
 
@@ -32,7 +32,9 @@ public class AppListener implements ServletContextListener {
     	application.setAttribute("appRoot", application.getContextPath());
     	
     	// aws s3 bucket 주소
-    	String bucketUrl = "https://choongang-sebaek1.s3.ap-northeast-2.amazonaws.com/";
+
+    	String bucketUrl = "https://choongang-keomyeong.s3.ap-northeast-2.amazonaws.com/";
+
     	application.setAttribute("imgRoot", bucketUrl);
     }
 	

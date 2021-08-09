@@ -15,12 +15,17 @@ import lombok.Setter;
 @Service
 public class MessageServiceImpl implements MessageService {
 
+
+	
     @Setter(onMethod_ = @Autowired)
     private MessageMapper mapper;
+    
     @Setter(onMethod_ = @Autowired)
     private UserMapper userMapper;
+
     @Override
     public boolean mesinsert(MessageVO vo) {
+        
     	UserVO reader = userMapper.read(vo.getReader());
     	
     	if (reader == null) {
@@ -31,19 +36,42 @@ public class MessageServiceImpl implements MessageService {
         
         return cnt == 1;
     }
-
+    
+    //쪽지 삭제
+    @Override
+    public void mesdelete(MessageVO vo) {
+    	mapper.mesdelete(vo);
+    }
 	
 
 	@Override
-	public List<MessageVO> getListSend(MessageVO vo) {
-		return mapper.getListSend(vo);
+	public List<MessageVO> getListSend(MessageVO vo, Integer page) {
+		return mapper.getListSend(vo, page);
+	}
+
+	@Override
+	public int getTotalListSend(MessageVO vo) {
+		return mapper.getTotalListSend(vo);
 	}
 
 
 
 	@Override
-	public List<MessageVO> getListReceive(MessageVO vo) {
-		return mapper.getListReceive(vo);
+	public List<MessageVO> getListReceive(MessageVO vo, Integer page) {
+		return mapper.getListReceive(vo, page);
 	}
 
+	@Override
+	public int getTotalListReceive(MessageVO vo) {
+		return mapper.getTotalListReceive(vo);
+	}
+	
+	//쪽지 검색
+	@Override
+	public List<MessageVO> getSearchMessageList(String searchValue) {
+		
+		return mapper.getSearchMessageList(searchValue);
+	}
+	
+	
 }

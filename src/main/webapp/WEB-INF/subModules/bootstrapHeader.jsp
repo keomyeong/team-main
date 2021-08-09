@@ -11,6 +11,11 @@
 <!-- 
 <link href="${pageContext.request.contextPath }/res/css/all.css" rel="stylesheet">
  -->
+ 
+ <style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
+body{font-family: 'Do Hyeon', sans-serif;}
+</style>
 
 <script defer src="${pageContext.request.contextPath }/resources/js/all.js"></script>
 
@@ -23,7 +28,12 @@ security info
 
 
 
+<!--  글꼴 수정  -->
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Do+Hyeon&display=swap');
 
+ body{font-family: 'Do Hyeon', sans-serif;}
+</style>
 
 
 
