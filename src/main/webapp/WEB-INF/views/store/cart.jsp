@@ -46,8 +46,8 @@
             <td>${cart.cartstock }</td>
             <td>${cart.money}</td>
             <td>
-            <form action="${appRoot }/store/cartdelet" method="post">
-            	<input name = "cno" type = "hidden" value = "${cart.cno }"/>
+            <form action="${appRoot }/store/cartdelete" method="post">
+            	<input name ="cno" type ="hidden" value = "${cart.cno }"/>
 				<button type = "submit" class="btn btn-outline-secondary" >삭제</button>	
 			</form>
             </td>

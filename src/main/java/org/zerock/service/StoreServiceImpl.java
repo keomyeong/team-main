@@ -26,8 +26,8 @@ public class StoreServiceImpl implements StoreService {
 	}
 
 	@Override
-	public void cartdelet(Long cno) {
-		mapper.cartdelet(cno);
+	public void cartdelete(Long cno) {
+		mapper.cartdelete(cno);
 	}
 
 	@Override

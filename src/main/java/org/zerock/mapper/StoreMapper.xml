@@ -68,7 +68,7 @@
 	
 	
 	<!-- 장바구니 삭제 -->
-	<delete id ="cartdelet">
+	<delete id ="cartdelete">
 	 DELETE FROM cart WHERE cno = #{cno}
 	</delete>
 	

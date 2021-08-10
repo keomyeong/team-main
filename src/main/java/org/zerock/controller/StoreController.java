@@ -59,12 +59,12 @@ public class StoreController {
         public String cart(CartVO vo, Principal principal, Model model, SProductVO svo) {         
         log.info(principal.getName());	
         vo.setUserid(principal.getName());
-        long count = stservice.countCart(vo.getPno(), principal.getName());
-        if(count == 0) {
+//        long count = stservice.countCart(vo.getPno(), principal.getName());
+//        if(count == 0) {
         	stservice.addCart(vo);        	
-        }else {
-        	stservice.updateCart(vo);
-        }
+//        }else {
+//        	stservice.updateCart(vo);
+//        }
           return "redirect:/store/cart";
         }
         
@@ -84,9 +84,9 @@ public class StoreController {
         
         }
         // 카트 삭제
-        @PostMapping("/cartdelet")
-        public String cartdelet(@RequestParam("cno") Long cno) {
-        	stservice.cartdelet(cno);
+        @PostMapping("/cartdelete")
+        public String cartdelete(@RequestParam("cno") Long cno) {
+        	stservice.cartdelete(cno);
         	return "redirect:/store/cart";
         }
         

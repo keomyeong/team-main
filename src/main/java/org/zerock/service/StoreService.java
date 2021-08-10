@@ -10,7 +10,7 @@ public interface StoreService {
 	
 	public List<CartVO> listCart(String userid);
 	
-	public void cartdelet(Long cno);
+	public void cartdelete(Long cno);
 	
 	public void modifyCart(CartVO vo);
 	
