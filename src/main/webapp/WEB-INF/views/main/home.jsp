@@ -23,6 +23,7 @@
 		
 		
 		
+		<a href ="${appRoot}/store/cart">cart 실험하기</a>		
 		
 		<a href="${appRoot}/mypage/exjsp">exjsp 실험하기</a>		
 		

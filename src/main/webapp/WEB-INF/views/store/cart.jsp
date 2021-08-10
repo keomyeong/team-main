@@ -33,7 +33,7 @@
       <th>가격</th>
       <th>수량</th>
       <th>합계</th>
-      
+      <th>취소</th>
     </tr>
   </thead>
   <tbody>
@@ -45,19 +45,28 @@
             <td>${cart.price}</td>
             <td>${cart.cartstock }</td>
             <td>${cart.money}</td>
-        </tr>
-        
+            <td>
+            <form action="${appRoot }/store/cartdelet" method="post">
+            	<input name = "cno" type = "hidden" value = "${cart.cno }"/>
+				<button type = "submit" class="btn btn-outline-secondary" >삭제</button>	
+			</form>
+            </td>
+        </tr>      
     </c:forEach>
   </tbody>
-   <%-- <tfoot>
+  
+   <tfoot>
     <tr>
-        <td colspan="4"></td>
-        <td>${ cart.totalPrice }</td>
+        <td colspan="5"></td> 
+		<td>주문금액 : </td>		
+		<td> ${sumMoney}</td>
     </tr>
-  </tfoot> --%>
+  </tfoot>
 </table>
 
 <form action="#" method="post">
+<!--${appRoot}/store/order  -->
+	<input name = "cno" type = "hidden" value = "${cart.cno }"/>
 	<button type="submit" class="btn btn-lg btn-block btn-primary">주문하기</button>
 </form>
 

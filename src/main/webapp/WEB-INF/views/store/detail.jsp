@@ -110,16 +110,19 @@
 				</div>	
 				
 				<button type = "submit" class="btn btncl" id = "wish1" ><i class="fas fa-heart"></i> 찜하기 </button>
+		
 		<form action="${appRoot }/store/cart" method="post">
 				<input type = "hidden" name="pno" value = "${store.pno }">
-				<select name = "cartstock">
+				<select name = "cartstock" id = "cartstrock">
 					<c:forEach begin="1" end="10" var ="i">
 						<option value="${i }">${i }</option>
 					</c:forEach>
 				</select>		
 				<button type = "submit" id ="cart1" class="btn btncl"><i class="far fa-envelope"></i> 장바구니 </button>
-		</form>	
+		</form>
+<!-- 첫번째 문제 스크립트 -->
 				<button type = "submit" id ="buy1" class="btn btncl"><i class="far fa-envelope"></i> 구매하기 </button>
+
 				
 				<hr>
 		</div>

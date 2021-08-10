@@ -19,5 +19,5 @@ public class CartVO {
 	private String detail;
 	private long money;
 
-
+	private long sumMoney;
 }

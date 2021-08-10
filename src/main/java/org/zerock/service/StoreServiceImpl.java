@@ -25,4 +25,35 @@ public class StoreServiceImpl implements StoreService {
 		return mapper.listCart(userid);
 	}
 
+	@Override
+	public void cartdelet(Long cno) {
+		mapper.cartdelet(cno);
+	}
+
+	@Override
+	public void modifyCart(CartVO vo) {
+		// TODO Auto-generated method stub
+		mapper.modifyCart(vo);
+	}
+
+	@Override
+	public int sumMoney(String userid) {
+		// TODO Auto-generated method stub
+		return mapper.sumMoney(userid);
+	}
+
+	/* 장바구니에 동일한 상품이 있는지 확인 */
+	@Override
+	public int countCart(long pno, String userid) {
+		// TODO Auto-generated method stub
+		return mapper.countCart(pno, userid);
+	}
+
+	/* 장바구니에 동일한 상품이 있는지 확인되면 수정 */
+	@Override
+	public void updateCart(CartVO vo) {
+		mapper.updateCart(vo);
+		
+	}
+
 }
