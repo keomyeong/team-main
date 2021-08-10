@@ -63,6 +63,7 @@
 		WHERE userid = #{userid}
 	</delete>
 	
+
 	
 	<!-- 데이터 읽어오기   -->
 	  <select id="read" resultMap="userMap" >

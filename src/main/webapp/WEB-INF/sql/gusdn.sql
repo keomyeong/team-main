@@ -49,7 +49,6 @@ CREATE table C_board(
    	 FOREIGN KEY (writer) REFERENCES GH_User(userid) ON DELETE CASCADE
 );
 
-
 -- 커뮤니티 자유게시판 첨부파일  
 CREATE TABLE C_board_file (
 	id INT PRIMARY KEY AUTO_INCREMENT,
@@ -67,7 +66,16 @@ CREATE TABLE cb_reply (
     updateDate TIMESTAMP DEFAULT now(),
     FOREIGN KEY (bno) REFERENCES C_board(bno)
 );
-
+SELECT 
+		  		bno bno,
+		  		title title,
+		  		content content,
+		  		writer writer,
+		  		regdate regdate,
+		  		updatedate updatedate, 
+		  		cbcategory cbcategory
+		  	FROM C_board
+		  	ORDER BY bno DESC;
 
 SELECT * FROM C_board;
 SELECT * FROM C_board_file;
@@ -149,3 +157,53 @@ CREATE TABLE GH_Message (
 SELECT * from market;
 
 select * from market_file;
+create table carts (
+  id INT PRIMARY KEY AUTO_INCREMENT,
+  status integer default 0,
+  userid VARCHAR(50) references GH_User
+);
+create table product (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title varchar(50) not null,
+    price varchar(50) not null,
+    content varchar(256),
+    image varchar(255)
+);
+create table items (
+  cartid INT,
+  productid INT,
+  PRIMARY KEY (cartid, productid),
+  FOREIGN KEY (cartid)  references carts(id),
+  FOREIGN KEY (productid)  references product(id),
+  amount integer  not null
+);
+-- 스토어 상품 테이블 
+CREATE TABLE S_product(
+    pno INT PRIMARY KEY AUTO_INCREMENT,
+    category varchar(15) NOT NULL, -- 카테고리
+    userid VARCHAR(50) NOT NULL, -- 작성자
+    title VARCHAR(255) NOT NULL, -- 상품제목
+    price INT NOT NULL, -- 상품가격
+    stock INT, -- 상품수량
+    delivery varchar(15) NOT NULL, -- 배송
+    detail VARCHAR(2000), -- 상세설명
+    keyword VARCHAR(10), -- 상품 키워드
+    regdate TIMESTAMP DEFAULT NOW(), -- 상품 등록일
+    updatedate TIMESTAMP DEFAULT NOW(), -- 상품 업데이트일
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE
+);
+SELECT*from S_product;
+
+use Gohome;
+INSERT INTO S_product (category, userid, title, price, stock, delivery, detail, keyword)
+VALUES ('가구', 'poi0909', '침대', '100000', '10', '일반배송', '침대를 팝니다', '#침실');
+
+-- 이미지파일 업로드
+CREATE TABLE S_product_file( 
+    id INT PRIMARY KEY AUTO_INCREMENT, -- 파일 아이디 식별자
+    pno INT NOT NULL, -- 상품번호 (글번호)
+    fileName VARCHAR(256), -- 파일이름
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE-- 상품번호
+);
+
+

@@ -75,16 +75,12 @@ $(document).ready(function() {
 		// submit
 		actionForm.submit();
 	});
-	/* for문 대신에 each 함수 사용해서 timeBefore js에 값 보내주는 스크립트 */
-	$(".card-time-before").each(function(i, e) {
-		timeBefore(e);
-	})
 	
 });
 </script>        
 
 
-<title>중고마켓 </title>
+<title>스토어 </title>
 
 </head>
 <body>
@@ -92,7 +88,7 @@ $(document).ready(function() {
 <nb:navbar/>
 <nb:scroll />			  
 
-<div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
+<!-- <div class="toast" role="alert" aria-live="assertive" aria-atomic="true">
   <div class="toast-header">
     <img src="..." class="rounded mr-2" alt="...">
     <strong class="mr-auto">Bootstrap</strong>
@@ -105,7 +101,7 @@ $(document).ready(function() {
     프로젝트 진행 목적이므로 모든 이미지에 대한 저작권은 블라블라~~ 
     
   </div>
-</div>
+</div> -->
 
 
 		  
@@ -133,19 +129,15 @@ $(document).ready(function() {
   </a>
 </div>	
 	
-<%--		
+	
 <div>
-	<c:url value="/market/write" var="writeUrl">	
+	<c:url value="/store/register" var="registerUrl">	
 			<c:param name="pageNum" value="${cri.pageNum }"></c:param>
 			<c:param name="amount" value="${cri.amount }"></c:param>
 	</c:url>
-
-<br>
- <c:if test="${pinfo.user.userid}" >
-	<a class="btn btncl" href="${writeUrl }"><i class="fas fa-pen"></i> 글쓰기</a>
-</c:if> 				
+			
 </div>		
---%>	
+
 
 <!-- 키워드 -->
 <ul class="nav nav-pills">
@@ -169,38 +161,43 @@ $(document).ready(function() {
 <h4>오늘의 상품 추천 </h4>
 
 
+<a class="btn  btn-info" href="${appRoot }/store/register"><i class="fas fa-pen"></i>글쓰기 </a>
+	 
+
+
+
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
-<c:forEach items="${list }" var="market">
-<c:url value="/market/detail" var="getUrl">
-<c:param name="mno" value="${market.mno }" />
+<c:forEach items="${list }" var="store">
+ <c:url value="/store/detail" var="getUrl">
+<c:param name="pno" value="${store.pno }" />
 <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 <c:param name="amount" value="${pageMaker.cri.amount }" />
-</c:url>	  
+</c:url>	   
+
+
+
 <a href="${getUrl}">	
   <div class="col mb-4">
     <div class="card">
 
-	    	<img src="${imgRoot}market/${market.mno }/${market_file}" class="card-img-top" >
-	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
+	    	<img src="${imgRoot}store/${store.pno }/${store_file[0]}" class="card-img-top" >
 	     	<div class="card-body">	
-	     		<input type="hidden" class="card-text" value="${market.mno }"/>
-	 	     	<div class="card-title" >${market.mtitle }</div>     
+	     		<input type="hidden" class="card-text" value="${store.pno }"/>
+	 	     	<div class="card-title" >${store.title }</div>     
 	       	</div>
-	        
+
 	       <div class="form-group" id="card-detail">
-		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
-				<!-- js파일에서 원하는 형태의 코드로 변경 후 elem 자체로 js로 보내기(로딩 스크립트 사용) -->
-		        <span class="card-time-before" style="float: right;">${market.mregdate.time }</span>
+		        <div class="card-text"><fmt:formatNumber pattern="#,###원" value="${store.price }"/></div>
 		   </div>     
 	      		<hr>
 	       <div id="card-address">
-	       		<div class="card-add">${market.maddress }</div>
+	       		<div class="card-add">${store.delivery }</div>
 	       </div>  
     </div>
   </div>
  </a> 
-</c:forEach>	
+ </c:forEach>
 </div>
 
 <!--  pagenation -->
@@ -229,7 +226,7 @@ $(document).ready(function() {
 </nav>
 
 <div style="display: none;">
-	<form id="actionForm" action="${appRoot }/market/main" method="get">
+	<form id="actionForm" action="${appRoot }/store/main" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
@@ -237,6 +234,10 @@ $(document).ready(function() {
 
 
 </div>
+
+		<footer>
+			<nb:footer/>
+		</footer>
 </div>
 
 </body>

@@ -39,4 +39,6 @@ public interface UserMapper {
 	
 	// 메세지
 	public int msgsend(MessageVO vo);
+	
+	
 }
