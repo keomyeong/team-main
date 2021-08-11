@@ -59,12 +59,13 @@ public class StoreController {
         public String cart(CartVO vo, Principal principal, Model model, SProductVO svo) {         
         log.info(principal.getName());	
         vo.setUserid(principal.getName());
-//        long count = stservice.countCart(vo.getPno(), principal.getName());
-//        if(count == 0) {
+        long count = stservice.countCart(vo.getPno(), principal.getName());
+        log.info(count);
+        if(count == 0) {
         	stservice.addCart(vo);        	
-//        }else {
-//        	stservice.updateCart(vo);
-//        }
+        }else {
+       	stservice.updateCart(vo);
+        }
           return "redirect:/store/cart";
         }
         
@@ -89,12 +90,29 @@ public class StoreController {
         	stservice.cartdelete(cno);
         	return "redirect:/store/cart";
         }
-        
+        // 카트 수정하기
+    	@RequestMapping("/cartupdate")
+    	public void cartupdate(@RequestParam Long[] cartstock, @RequestParam Long[] pno, CartVO vo, Principal principal) {
+//    		log.info(principal.getName());
+  //  		vo.setUserid(principal.getName());
+  //  		for(int i=0; i<pno.length; i++) {
+    //			vo.setCartstock(cartstock[i]);
+    	//		vo.setPno(pno[i]);
+    		//	stservice.modifyCart(vo);
+    	//	}
+    		
+    	}
+    	
+    	@RequestMapping("/order")
+    	public void order() {
+    		
+    	}
+    	
     	@GetMapping("/register")
     	public void register(@ModelAttribute("cri") Criteria cri) {
     		
     	}
-
+    	
         @PostMapping("/register")
         public String register(SProductVO svo, @RequestParam("store_file") MultipartFile[] store_file , RedirectAttributes rttr) {
     	service.register(svo, store_file);    	

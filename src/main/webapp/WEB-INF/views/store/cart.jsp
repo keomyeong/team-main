@@ -10,7 +10,7 @@
 
 <%@ include  file = "/WEB-INF/subModules/bootstrapHeader.jsp" %>
 
-<title>Insert title here</title>
+<title>장바구니</title>
 </head>
 <body>
 <div class= "container">
@@ -66,9 +66,12 @@
 
 <form action="#" method="post">
 <!--${appRoot}/store/order  -->
-	<input name = "cno" type = "hidden" value = "${cart.cno }"/>
+<%-- 	<input name = "cno" type = "hidden" value = "${cart.cno }"/> --%>
 	<button type="submit" class="btn btn-lg btn-block btn-primary">주문하기</button>
+	
 </form>
+
+<button onclick="history.back()" class="btn btn-warning">Back</button>
 
 </div>
 </body>
