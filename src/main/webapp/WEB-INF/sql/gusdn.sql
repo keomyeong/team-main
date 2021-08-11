@@ -162,21 +162,7 @@ create table carts (
   status integer default 0,
   userid VARCHAR(50) references GH_User
 );
-create table product (
-    id INT PRIMARY KEY AUTO_INCREMENT,
-    title varchar(50) not null,
-    price varchar(50) not null,
-    content varchar(256),
-    image varchar(255)
-);
-create table items (
-  cartid INT,
-  productid INT,
-  PRIMARY KEY (cartid, productid),
-  FOREIGN KEY (cartid)  references carts(id),
-  FOREIGN KEY (productid)  references product(id),
-  amount integer  not null
-);
+
 -- 스토어 상품 테이블 
 CREATE TABLE S_product(
     pno INT PRIMARY KEY AUTO_INCREMENT,
@@ -192,12 +178,8 @@ CREATE TABLE S_product(
     updatedate TIMESTAMP DEFAULT NOW(), -- 상품 업데이트일
     FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE
 );
-SELECT*from S_product;
-
-use Gohome;
 INSERT INTO S_product (category, userid, title, price, stock, delivery, detail, keyword)
 VALUES ('가구', 'poi0909', '침대', '100000', '10', '일반배송', '침대를 팝니다', '#침실');
-
 -- 이미지파일 업로드
 CREATE TABLE S_product_file( 
     id INT PRIMARY KEY AUTO_INCREMENT, -- 파일 아이디 식별자
@@ -205,5 +187,60 @@ CREATE TABLE S_product_file(
     fileName VARCHAR(256), -- 파일이름
     FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE-- 상품번호
 );
+CREATE TABLE cart( 
+    cno INT PRIMARY KEY AUTO_INCREMENT, -- 카트 상품 넘버
+    userid VARCHAR(50) NOT NULL, -- 소비자
+    pno INT NOT NULL, -- 상품번호 (글번호)
+    cartstock int NOT NULL, -- 주문 수량
+    adddate TIMESTAMP DEFAULT NOW(), -- 장바구니에 담은 날짜
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 상품번호
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
+);
+select*from S_product;
+SELECT*from cart;
+INSERT INTO cart (userid, pno, cartstock)
+VALUES ('poi0909', '4', '3');
+select
+c.cno as cno,
+c.userid as userid,
+s.pno as pno,
+u.userid as userid,
+c.cartstock as cartstock,
+s.title as title,
+s.detail as detail,
+s.price as price,
+(price * cartstock) money
+from GH_User u, S_product s, cart c where u.userid = c.userid and s.pno = c.pno and c.userid = 'poi0909' 
+order by c.cno;
+delete from cart WHERE cno = "6";
+SELECT COUNT(*)
+FROM cart
+WHERE userid = 'poi0909'
+AND pno = '4';
+SELECT NVL(SUM(price * cartstock), 0) money 
+FROM cart c, S_product s 
+WHERE c.pno = s.pno and c.userid = 'poi0909';
+UPDATE cart
+SET cartstock = cartstock + '3'
+WHERE userid = 'poi0909'
+AND pno = '4';
 
+CREATE TABLE userorder_info(     
+    ono INT PRIMARY KEY AUTO_INCREMENT,
+    userid VARCHAR(50) NOT NULL, -- 주문자
+    userAddr1 VARCHAR(50) NOT NULL, -- 우편번호
+    userAddr2 VARCHAR(50) NOT NULL, -- 기본주소
+    userAddr3 VARCHAR(30) NOT NULL, -- 상세주소
+    orderphone VARCHAR(15) NOT NULL, -- 연락처
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
+);
 
+CREATE TABLE order_detail(
+    dno INT PRIMARY KEY AUTO_INCREMENT, -- 주문 상세 고유번호
+    orderno INT NOT NULL, -- 주문번호
+    pno INT NOT NULL, -- 상품 번호
+    cno INT NOT NULL, -- 장바구니 번호
+    cartcount INT NOT NULL, -- 장바구니 수량
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 제품에서 바로 할때
+    FOREIGN KEY (cno) REFERENCES cart(cno) ON DELETE CASCADE -- 장바구니 번호 
+);
