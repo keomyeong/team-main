@@ -14,19 +14,17 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
-import org.zerock.domain.CBCriteria;
-import org.zerock.domain.CBPageDTO;
 import org.zerock.domain.CBoardVO;
+import org.zerock.domain.EBrezmsgVO;
 import org.zerock.domain.MarketVO;
 import org.zerock.domain.UserVO;
-import org.zerock.mapper.CBoardMapper;
 import org.zerock.security.domain.CustomUser;
 import org.zerock.service.CBoardService;
+import org.zerock.service.EBrezmsgService;
 import org.zerock.service.MarketService;
 import org.zerock.service.UserService;
 
@@ -41,24 +39,33 @@ public class MypageController {
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
 	
-	// 마이페이지 추가 자게편
 	@Setter(onMethod_ = @Autowired)
 	private CBoardService CBservice;
-	// 마이페이지 추가 마켓편
+	
 	@Setter(onMethod_ = @Autowired)
 	private MarketService MKservice;
+	
+	@Setter(onMethod_ = @Autowired)
+	private EBrezmsgService rezservice;
 	
 	//마이페이지  홈 
 	@GetMapping("/home")
 	@PreAuthorize("isAuthenticated()")
-	public void main(Principal principal, Model model, CBoardVO vo) {
-		// 자게마켓 통합편		
+	public void main(Principal principal, Model model, CBoardVO vo, EBrezmsgVO ebrezvo) {
+		
+		// 내가 작성한 게시글 불러오기 		
 		vo.setWriter(principal.getName());		
 		List<CBoardVO> list = CBservice.getcbList(principal.getName());
 		model.addAttribute("list",list);
 		
 		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
 		model.addAttribute("jlist",jlist);
+		
+		List<EBrezmsgVO>rezlist =rezservice.getrezlist(principal.getName());
+		model.addAttribute("rezlist1",rezlist);
+		
+		List<EBrezmsgVO>readerrez =rezservice.getreaderrezlist(principal.getName());
+		model.addAttribute("rezlist",readerrez);
 	}
 	
 	
@@ -66,7 +73,7 @@ public class MypageController {
 	//비밀번호확인 후 정보페이지로 이동 
 	@PostMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
-	public String checkpwMethod(Principal principal,Model model, String userpwck, CBoardVO vo) {
+	public String checkpwMethod(Principal principal,Model model, String userpwck,CBoardVO vo, EBrezmsgVO ebrezvo) {
 		
 		log.info(principal.getName());
 		
@@ -92,7 +99,8 @@ public class MypageController {
 			resultshow ="redirect:/mypage/home?error";
 		
 		}
-		// 자게마켓 통합편		
+		
+		// 내가 작성한 게시글 불러오기 
 		vo.setWriter(principal.getName());
 		log.info(vo);
 		List<CBoardVO> list = CBservice.getcbList(principal.getName());
@@ -101,7 +109,12 @@ public class MypageController {
 		
 		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
 		model.addAttribute("jlist",jlist);
-				
+		
+		List<EBrezmsgVO>rezlist =rezservice.getrezlist(principal.getName());
+		model.addAttribute("rezlist1",rezlist);
+		
+		List<EBrezmsgVO>readerrez =rezservice.getreaderrezlist(principal.getName());
+		model.addAttribute("rezlist",readerrez);
 		
 		return resultshow;
 	}
@@ -113,13 +126,14 @@ public class MypageController {
 	
 	@GetMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
-	public void info(Principal principal, Model model, CBoardVO vo) {
+	public void info(Principal principal, Model model,CBoardVO vo) {
 		log.info(principal.getName());
 		
 		UserVO uservo = service.read(principal.getName());
 		
 		model.addAttribute("uservo", uservo);
-		// 자게마켓 통합편		
+		
+		// 내가 작성한 게시글 불러오기 
 		vo.setWriter(principal.getName());
 		log.info(vo);
 		List<CBoardVO> list = CBservice.getcbList(principal.getName());
@@ -129,14 +143,19 @@ public class MypageController {
 		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
 		model.addAttribute("jlist",jlist);
 		
+		List<EBrezmsgVO>rezlist =rezservice.getrezlist(principal.getName());
+		model.addAttribute("rezlist1",rezlist);
+		
+		List<EBrezmsgVO>readerrez =rezservice.getreaderrezlist(principal.getName());
+		model.addAttribute("rezlist",readerrez);
+
 	}
-	
-	
 	
 	
 
 	//정보불러서 수정하기 
 	@PostMapping("/modify")
+
 	@PreAuthorize("isAuthenticated()")
 	public String modify(UserVO vo, RedirectAttributes rttr, Authentication auth) {
 		
@@ -205,38 +224,34 @@ public class MypageController {
 		
 		
 	}
-
-	// 자게마켓 통합편
-	@GetMapping("/exjsp")
-	@PreAuthorize("isAuthenticated()")
-	public void exjsp(Model model, Principal principal, CBoardVO vo) {		
-		log.info("exjsp");
-		vo.setWriter(principal.getName());
-		log.info(principal.getName());
-		
-		List<CBoardVO> list = CBservice.getcbList(principal.getName());
-		model.addAttribute("list",list);
-		
-		List<MarketVO> jlist = MKservice.getmkList(principal.getName());
-		model.addAttribute("jlist",jlist);
-
-	}
-	// 자게마켓 통합편 삭제편
+	
+	// 게시판 마켓 상담내역 삭제 
 	@PostMapping("/removeAll")
-	public String removeAll(@RequestParam("removeBnoList") ArrayList<Long> removeBnoList) {		
+	public String removeAll(@RequestParam("removeBno") ArrayList<Long> removeBnoList,RedirectAttributes rttr) {		
 		for (Long bno : removeBnoList) {
 			CBservice.cbremove(bno);
 		}
+		rttr.addFlashAttribute("qqq", "삭제 되었습니다  ");
 		
-		return "redirect:/mypage/myinfos";
+		return "redirect:/mypage/home";
 	}
 	@PostMapping("/removeAll2")
-	public String removeAll2(@RequestParam("removeMnoList") ArrayList<Integer> removeMnoList) {		
+	public String removeAll2(@RequestParam("removeMnoList") ArrayList<Integer> removeMnoList,RedirectAttributes rttr) {		
 	
 		for (Integer mno : removeMnoList) {
 			MKservice.remove(mno);
 		}
-		return "redirect:/mypage/myinfos";
+		rttr.addFlashAttribute("qqq", "삭제 되었습니다  ");
+		return "redirect:/mypage/home";
+	}
+	@PostMapping("/removerezmsgAll")
+	public String removerezmsgAll(@RequestParam("removeRnoList") ArrayList<Long> removeRnoList,RedirectAttributes rttr) {		
+		
+		for (Long rno : removeRnoList ) {
+			rezservice.rezremove(rno);
+		}
+		rttr.addFlashAttribute("qqq", "삭제 되었습니다  ");
+		return "redirect:/mypage/home";
 	}
 	
 	

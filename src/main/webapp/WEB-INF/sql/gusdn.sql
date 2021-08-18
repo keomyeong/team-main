@@ -1,11 +1,6 @@
 -- Gohome 데이터베이스 만들기 
 CREATE DATABASE Gohome;
-
 use Gohome;
-drop DATABASE Gohome;
-SELECT * FROM GH_User;
-drop table GH_User;
-drop table GH_auth;
 -- 사용자정보 테이블 만들기
 CREATE table GH_User(
     userid VARCHAR(50) PRIMARY KEY,
@@ -66,37 +61,6 @@ CREATE TABLE cb_reply (
     updateDate TIMESTAMP DEFAULT now(),
     FOREIGN KEY (bno) REFERENCES C_board(bno)
 );
-SELECT 
-		  		bno bno,
-		  		title title,
-		  		content content,
-		  		writer writer,
-		  		regdate regdate,
-		  		updatedate updatedate, 
-		  		cbcategory cbcategory
-		  	FROM C_board
-		  	ORDER BY bno DESC;
-
-SELECT * FROM C_board;
-SELECT * FROM C_board_file;
-SELECT * FROM cb_reply;
-
-SELECT * FROM GH_User;
-SELECT * FROM GH_auth;
-
-DESC market;
-DESC wishlist;
-DESC market_file;
-
-SELECT * FROM market;
-SELECT * FROM wishlist;
-SELECT * FROM market_file;
-
-DELETE FROM GH_User;
-
-DROP TABLE market;
-DROP TABLE market_file;
-DROP TABLE wishlist;
 
 -- 사용자정보 테이블 만들기
 CREATE TABLE market(
@@ -120,31 +84,6 @@ fileName VARCHAR(256), -- 파일이름
 FOREIGN KEY (mno) REFERENCES market(mno) ON DELETE CASCADE-- 상품번호
 );
 
-
--- 찜목록 
-CREATE TABLE wishlist(
-	wno INT PRIMARY KEY AUTO_INCREMENT,
-	mwriter VARCHAR(50) NOT NULL,
-    mno INT NOT NULL,
-    FOREIGN KEY (mwriter) REFERENCES GH_User(userid),
-    FOREIGN KEY (mno) REFERENCES market(mno)
-);
-
-
-
-
-INSERT INTO market 
-(mwriter, mtitle, mprice, mdetail, mstate, maddress)
-VALUES ('qaqa12', 'test', 100000, '2만원에 급처', '새상품', '서울대입구');
-
-
-SELECT * FROM GH_Message;
-DESC GH_Message;
-
-DELETE FROM GH_Message;
-
-DROP TABLE GH_Message;
-
 CREATE TABLE GH_Message (
    mno INT PRIMARY KEY AUTO_INCREMENT,
     writer varchar(50) ,
@@ -154,9 +93,6 @@ CREATE TABLE GH_Message (
     FOREIGN KEY (writer) REFERENCES GH_User(userid)
 );
 
-SELECT * from market;
-
-select * from market_file;
 create table carts (
   id INT PRIMARY KEY AUTO_INCREMENT,
   status integer default 0,
@@ -178,14 +114,21 @@ CREATE TABLE S_product(
     updatedate TIMESTAMP DEFAULT NOW(), -- 상품 업데이트일
     FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE
 );
-INSERT INTO S_product (category, userid, title, price, stock, delivery, detail, keyword)
-VALUES ('가구', 'poi0909', '침대', '100000', '10', '일반배송', '침대를 팝니다', '#침실');
+
 -- 이미지파일 업로드
 CREATE TABLE S_product_file( 
     id INT PRIMARY KEY AUTO_INCREMENT, -- 파일 아이디 식별자
     pno INT NOT NULL, -- 상품번호 (글번호)
     fileName VARCHAR(256), -- 파일이름
     FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE-- 상품번호
+);
+CREATE TABLE wish( 
+    wno INT PRIMARY KEY AUTO_INCREMENT, -- 찜 넘버
+    userid VARCHAR(50) NOT NULL, -- 소비자
+    pno INT NOT NULL, -- 상품번호 (글번호)
+    adddate TIMESTAMP DEFAULT NOW(), -- 찜 담은 날짜
+    FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 상품번호
+    FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
 );
 CREATE TABLE cart( 
     cno INT PRIMARY KEY AUTO_INCREMENT, -- 카트 상품 넘버
@@ -196,34 +139,16 @@ CREATE TABLE cart(
     FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 상품번호
     FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
 );
-select*from S_product;
-SELECT*from cart;
-INSERT INTO cart (userid, pno, cartstock)
-VALUES ('poi0909', '4', '3');
-select
-c.cno as cno,
-c.userid as userid,
-s.pno as pno,
-u.userid as userid,
-c.cartstock as cartstock,
-s.title as title,
-s.detail as detail,
-s.price as price,
-(price * cartstock) money
-from GH_User u, S_product s, cart c where u.userid = c.userid and s.pno = c.pno and c.userid = 'poi0909' 
-order by c.cno;
-delete from cart WHERE cno = "6";
+SELECT*from wish;
+select*from cart;
 SELECT COUNT(*)
-FROM cart
-WHERE userid = 'poi0909'
-AND pno = '4';
-SELECT NVL(SUM(price * cartstock), 0) money 
-FROM cart c, S_product s 
-WHERE c.pno = s.pno and c.userid = 'poi0909';
-UPDATE cart
-SET cartstock = cartstock + '3'
-WHERE userid = 'poi0909'
-AND pno = '4';
+	FROM wish
+	WHERE userid = 'test1'
+	AND pno = '4';
+DELETE
+	FROM wish
+	WHERE userid = 'test1'
+	AND pno = '4';
 
 CREATE TABLE userorder_info(     
     ono INT PRIMARY KEY AUTO_INCREMENT,
@@ -234,7 +159,7 @@ CREATE TABLE userorder_info(
     orderphone VARCHAR(15) NOT NULL, -- 연락처
     FOREIGN KEY (userid) REFERENCES GH_User(userid) ON DELETE CASCADE -- 고객정보
 );
-
+use Gohome;
 CREATE TABLE order_detail(
     dno INT PRIMARY KEY AUTO_INCREMENT, -- 주문 상세 고유번호
     orderno INT NOT NULL, -- 주문번호
@@ -244,3 +169,45 @@ CREATE TABLE order_detail(
     FOREIGN KEY (pno) REFERENCES S_product(pno) ON DELETE CASCADE, -- 제품에서 바로 할때
     FOREIGN KEY (cno) REFERENCES cart(cno) ON DELETE CASCADE -- 장바구니 번호 
 );
+-- 업체게시판 테이블 만들기 
+CREATE table E_board(
+	eno INT PRIMARY KEY AUTO_INCREMENT,
+    	 title VARCHAR(255) NOT NULL,
+     	content VARCHAR(2000) NOT NULL,
+	writer VARCHAR(50) NOT NULL,
+	addRegion VARCHAR(15),
+    	 addCi VARCHAR(15),
+    	 addGu VARCHAR(15),
+    	 regdate TIMESTAMP DEFAULT NOW(),
+    	 updatedate TIMESTAMP DEFAULT NOW(),
+     	FOREIGN KEY (writer) REFERENCES GH_User(userid) ON DELETE CASCADE);
+
+
+--  업체게시판  파일 테이블 
+CREATE TABLE E_board_file (
+
+	id INT PRIMARY KEY AUTO_INCREMENT,
+	eno INT REFERENCES E_board(eno),
+	fileName VARCHAR(200) not null,
+	FOREIGN KEY (eno) REFERENCES E_board(eno) ON DELETE CASCADE
+
+);
+
+SELECT * FROM E_board;
+SELECT * FROM E_board_file;
+
+
+-- 업체 예약 																						
+CREATE TABLE E_rezmsg (
+	rno INT PRIMARY KEY AUTO_INCREMENT,
+    eno INT REFERENCES E_board(eno),
+    reader varchar(50),
+    rezdate varchar(50),
+    reztime varchar(50),
+	writer varchar(50),																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																																				
+    content varchar(256) ,
+    regdate TIMESTAMP DEFAULT NOW(),
+    FOREIGN KEY (eno) REFERENCES E_board(eno),
+    FOREIGN KEY (writer) REFERENCES GH_User(userid) ON DELETE CASCADE
+);
+

@@ -47,7 +47,11 @@ public class MainController {
 		log.info("home method");
 		
 	}
-	
+	// 소개
+	@RequestMapping("/intd")
+	public void intd() {
+		
+	}
 	
 	//로그인 
 	@RequestMapping("/login")
