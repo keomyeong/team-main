@@ -1,6 +1,5 @@
 package org.zerock.controller;
 
-import java.security.Principal;
 import java.util.List;
 
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -88,7 +87,6 @@ public class CBoardController {
 	}
 	
 	//자유게시판 글 수정 
-	//슈 하트앙 
 	@PostMapping("/cbmodify")
 	@PreAuthorize("principal.username == #cboard.writer")
 	public String  cbmodify(CBoardVO cboard, CBCriteria cri,

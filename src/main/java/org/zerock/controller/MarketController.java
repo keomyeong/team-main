@@ -39,7 +39,7 @@ public class MarketController {
 	private UserService userservice;	
 	
 	
-        @GetMapping("/main")
+        @GetMapping("/home")
         public void market(@ModelAttribute("cri") Criteria cri, Model model) {
             log.info("market method");
        		int total = service.getTotal(cri);    
@@ -66,7 +66,7 @@ public class MarketController {
         	rttr.addFlashAttribute("result", mvo.getMno());
 
 
-        	return "redirect:/market/main"; 
+        	return "redirect:/market/home"; 
     		} 		
     	
         
@@ -83,8 +83,6 @@ public class MarketController {
 		
 		
 		@PostMapping("/modify")
-//		@PreAuthorize("principal.username == #board.writer") // 720 쪽
-//		@PreAuthorize("authication.name == #board.writer") // spring.io
 		public String modify(MarketVO mvo, Criteria cri, 
 				@RequestParam("market_file") MultipartFile[] market_file, RedirectAttributes rttr) {
 
@@ -98,22 +96,15 @@ public class MarketController {
 			
 			rttr.addAttribute("pageNum", cri.getPageNum());
 			rttr.addAttribute("amount", cri.getAmount());
-//			rttr.addAttribute("type", cri.getType());
-//			rttr.addAttribute("keyword", cri.getKeyword());
-			
-			return "redirect:/market/main";
+			return "redirect:/market/home";
 		}
 		
 		
 		@PostMapping("/remove")
-//		@PreAuthorize("principal.username == #writer") // 720 쪽
 		public String remove(@RequestParam("mno") int mno,
 				Criteria cri, RedirectAttributes rttr, String writer) {
-			// parameter 수집
 			
-			// service 일
 			boolean success = service.remove(mno);
-			// 결과 담고
 			if (success) {
 				rttr.addFlashAttribute("result", "success");
 				rttr.addFlashAttribute("messageTitle", "삭제 성공");
@@ -123,32 +114,9 @@ public class MarketController {
 			rttr.addAttribute("amount", cri.getAmount());
 
 			
-			// forward or redirect
-			return "redirect:/market/main";
+			return "redirect:/market/home";
 			
 		}
 		
-		
-		
-		/*
-		 * @GetMapping("/mgsend") //@PreAuthorize("isAuthenticated()") public void
-		 * listsend(Principal principal, MessageVO vo, Model model) {
-		 * 
-		 * vo.setWriter(principal.getName()); List<MessageVO> list =
-		 * messageservice.getListSend(vo); model.addAttribute("listsend", list);
-		 * 
-		 * UserVO uservo = userservice.read(principal.getName());
-		 * model.addAttribute("uservo", uservo);
-		 * 
-		 * }
-		 * 
-		 * 
-		 * @PostMapping("/mgsend" ) public String listsendPost(MessageVO vo,
-		 * RedirectAttributes rttr) { log.info("listsendPost method"); boolean success =
-		 * messageservice.mesinsert(vo); if (success) {
-		 * rttr.addFlashAttribute("message", "메시지가 발송 되었습니다. "); } else {
-		 * rttr.addFlashAttribute("message", "수신자가 존재하지 않습니다. "); } return
-		 * "redirect:/message/mgsend"; }
-		 */
         
 }

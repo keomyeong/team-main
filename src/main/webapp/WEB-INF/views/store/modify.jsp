@@ -25,8 +25,33 @@ $(document).ready(function() {
 			$("#store-modify").submit();
 		}
 	});
+
+});
+
+</script>
+
+<script>
+/* 판매가, 재고수량 숫자만 입력 가능한 스크립트 */
+$(document).ready(function(){
+var regExp = /[^0-9]/gi;
+
+$("#price").keyup(function(){ 
+	numCheck($(this)); 
+	});
+
+$("#stock").keyup(function(){ 
+	numCheck($(this)); 
+	});
+
+function numCheck(selector) {
+ var tempVal = selector.val();
+ selector.val(tempVal.replace(regExp, ""));
+}
 });
 </script>
+
+
+
 </head>
 <body>
 <div class="container">
@@ -144,3 +169,5 @@ $(document).ready(function() {
 
 </body>
 </html>
+
+

@@ -41,7 +41,29 @@
          WHERE
            s.pno = #{pno}
     </select>  
- 
+
+	<!-- 카테고리 조회   -->
+  	<select id="readCategory" resultMap="productMap" >
+         SELECT 
+           s.pno pno,
+           s.category category,
+           s.userid userid,
+           s.title title,
+           s.price price,
+           s.stock stock,
+	       s.delivery delivery,
+           s.detail detail,
+           s.keyword keyword,
+           s.regdate regdate,
+           s.updatedate updatedate,
+           sf.fileName fileName,
+           a.userid userid
+         FROM 
+           S_product s LEFT JOIN S_product_file sf ON s.pno = sf.pno
+            				JOIN GH_User a ON s.userid = a.userid
+         WHERE
+           s.category = #{category}
+    </select>  
 
 
 
@@ -73,6 +95,7 @@
       <![CDATA[   
 	    SELECT 
 	       pno pno,
+	       category category,
            userid userid,
            title title,
            price price,
@@ -85,7 +108,7 @@
 	
 	     FROM S_product
 	     
-	     WHERE pno > 0 ORDER BY pno DESC     
+	     WHERE category=#{category} ORDER BY pno DESC     
       ]]>   
 	</select> 
 
@@ -118,6 +141,34 @@
       ]]>    
 	</select> 
 
+
+		<!-- 가구 카테고리 페이징 리스트 -->
+ 	<select id="getCateWithPaging" resultMap="productMap">
+      <![CDATA[    
+		 SELECT 
+           s.pno pno,
+           s.category category,
+           s.userid userid,
+           s.title title,
+           s.price price,
+           s.stock stock,
+	       s.delivery delivery,
+           s.detail detail,
+           s.keyword keyword,
+           s.regdate regdate,
+           s.updatedate updatedate,
+           sf.fileName fileName
+	    	
+	     FROM S_product s LEFT JOIN S_product_file sf ON s.pno = sf.pno
+         WHERE s.category = '가구'
+	     ORDER BY pno DESC
+	     
+	     LIMIT #{from}, #{amount}     
+      ]]>    
+	</select> 
+
+
+
 	<!-- 계정 삭제시 게시물 삭제 -->
  	<delete id="removeByUserid">
 		DELETE FROM S_product
@@ -147,10 +198,3 @@
 </mapper>
 
 
-
-<!--  	<insert id="insertWish">
-		INSERT INTO wishlist
-		(mwriter, pno)
-		VALUES
-		(#{mwriter}, #{pno})
-	</insert>  -->

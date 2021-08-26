@@ -62,7 +62,6 @@ public class MarketServiceImpl implements MarketService {
 		            .build();
 	   }
 
-	   // 공부!!!
 	   @Override
 		public void write(MarketVO mvo) {
 			mapper.insertSelectKey(mvo);
@@ -113,8 +112,7 @@ public class MarketServiceImpl implements MarketService {
 	  
 	   
 			         
-	   // 은비 읽어오기 수정함
-	   //mno값으로 받아온 파일명을 list에 넣어서 불러옴
+	
 	    @Override
 	    public MarketVO read(int mno) {
 	    	

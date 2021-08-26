@@ -49,17 +49,6 @@ $(document).ready(function() {
 		<div class="col-12">
 			<form id="market-modify" action="${appRoot }/market/modify" method="post" enctype="multipart/form-data">
 				<input hidden name="mno" value="${market.mno }" />
-				
-<%-- 			<div class="form-group">
-			<c:if test="${not empty market.fileName }">
-            <c:forEach items="${market.fileName }" var="market_file">
-               <div>
-                  <img class="rounded float-left" src="${imgRoot}market/${market.mno }/${market_file}">
-               </div>
-            </c:forEach>
-            </c:if>
-			</div>	 --%>
-			
 			
 	<div class="form-group">
 		<c:if test="${not empty market.fileName }">

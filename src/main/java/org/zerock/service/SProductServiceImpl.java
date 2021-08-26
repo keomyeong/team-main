@@ -177,7 +177,7 @@ public class SProductServiceImpl implements SProductService {
 			
 			return cnt == 1;
 		}
- 
+
 		
 		private void removeFile(SProductVO svo) {
 			for (String fileName : svo.getFileName()) {
@@ -200,13 +200,17 @@ public class SProductServiceImpl implements SProductService {
 	       return mapper.getListWithPaging(cri);
 	    }
 
+	    @Override
+	    public List<SProductVO> getCategory(Criteria cri) {
+	       return mapper.getCateWithPaging(cri);
+	    }
+	    
+	    
 	   @Override
 	   public int getTotal(Criteria cri) {
 	      return mapper.getTotalCount(cri); 
 	   }
 
-
-	
 
 
 

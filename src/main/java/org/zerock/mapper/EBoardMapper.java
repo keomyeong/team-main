@@ -6,8 +6,6 @@ import org.zerock.domain.EBCriteria;
 import org.zerock.domain.EBoardVO;
 
 public interface EBoardMapper {
-
-	
 	
 	//게시물 저장 
 	public int ebinsertSelectKey(EBoardVO eboard);

@@ -34,9 +34,3 @@ public interface MarketMapper {
 	public List <MarketVO> getmkList(String writer);
 }
 
-// 찜상품 등록
-// public int insertWish(WishlistVO wvo);
-
-//테이터 삭제
-//public int remove(MarketVO vo);
-//public int removeWish(MarketVO vo);

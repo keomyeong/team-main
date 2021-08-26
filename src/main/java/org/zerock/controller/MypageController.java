@@ -73,33 +73,26 @@ public class MypageController {
 	//비밀번호확인 후 정보페이지로 이동 
 	@PostMapping("/myinfos")
 	@PreAuthorize("isAuthenticated()")
-	public String checkpwMethod(Principal principal,Model model, String userpwck,CBoardVO vo, EBrezmsgVO ebrezvo) {
-		
-		log.info(principal.getName());
-		
+	public String checkpwMethod(Principal principal,Model model, String userpwck,CBoardVO vo, EBrezmsgVO ebrezvo) {		
+		log.info(principal.getName());	
 		UserVO uservo = service.read(principal.getName());
 		model.addAttribute("uservo", uservo);
-		
-		
+			
 		String Encoderpw =uservo.getUserpw();
 		
 		BCryptPasswordEncoder encoder =new BCryptPasswordEncoder();
-		
-		
-		
+				
 		String resultshow ="";
 		
-		if(encoder.matches(userpwck,Encoderpw)) {
-			
+		if(encoder.matches(userpwck,Encoderpw)) {			
 			log.info("입력한 비밀번호 일치 ");
 			resultshow= "/mypage/myinfos";
 			
 		}else {
-			log.info("불 일치 ");
+			log.info("불일치 ");
 			resultshow ="redirect:/mypage/home?error";
 		
-		}
-		
+		}		
 		// 내가 작성한 게시글 불러오기 
 		vo.setWriter(principal.getName());
 		log.info(vo);
@@ -118,9 +111,7 @@ public class MypageController {
 		
 		return resultshow;
 	}
-		
 
-	
 	//수정후 정보페이지 로딩  
 	//경로이동하는건 get방식 
 	
@@ -128,7 +119,6 @@ public class MypageController {
 	@PreAuthorize("isAuthenticated()")
 	public void info(Principal principal, Model model,CBoardVO vo) {
 		log.info(principal.getName());
-		
 		UserVO uservo = service.read(principal.getName());
 		
 		model.addAttribute("uservo", uservo);
@@ -150,17 +140,12 @@ public class MypageController {
 		model.addAttribute("rezlist",readerrez);
 
 	}
-	
-	
-
 	//정보불러서 수정하기 
 	@PostMapping("/modify")
-
 	@PreAuthorize("isAuthenticated()")
 	public String modify(UserVO vo, RedirectAttributes rttr, Authentication auth) {
 		
 		boolean ok = service.modify(vo);
-		
 		if(ok) {
 			rttr.addAttribute("status","success");
 			// session의 authentication 을 수정
@@ -171,7 +156,6 @@ public class MypageController {
 		}
 		
 		return "redirect:/mypage/myinfos";
-		
 	}
 	
 	//비밀번호 수정하기 
@@ -194,9 +178,7 @@ public class MypageController {
 			return "redirect:/mypage/home";
 		}
 		
-		
 		return "redirect:/main/home";
-		
 	}
 	
 	
@@ -220,9 +202,7 @@ public class MypageController {
 			log.info("탈퇴실패 ");
 			rttr.addFlashAttribute("qqq", "비밀번호가 틀렸습니다.  ");
 			return "redirect:/mypage/home";
-		}
-		
-		
+		}	
 	}
 	
 	// 게시판 마켓 상담내역 삭제 

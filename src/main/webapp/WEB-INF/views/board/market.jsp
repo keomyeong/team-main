@@ -4,8 +4,6 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="nb" tagdir="/WEB-INF/tags/nb" %>
-
-
 <% request.setCharacterEncoding("utf-8"); %>
 
 <!DOCTYPE html>
@@ -13,77 +11,6 @@
 <head>
 
 <%@ include file="/WEB-INF/subModules/bootstrapHeader.jsp" %>
-
-<style type="text/css">
-hr {
-margin : 0px;
-}
- 
-a { 
-color : black;
-} 
-a:hover { 
-color : black;
-text-decoration:none ;
-} 
-.card-body {
-padding : 10px;
-}
-
-.card-title{
-font-size : 22px;
-}
-
-#card-detail, #card-address{
-padding : 10px;
-
-}
-
-.card-img-top {
-width: 300px;
-
-
-}
-
-.card-img-top img{
-width: 300px;
-
-
-}
-
-
-
-</style> 
-
-
-
-<!-- timeago -->
-<script src="${appRoot }/resources/js/date.js"></script>
-     
-<script>
-$(document).ready(function() {
-	$("#list-pagenation1 a").click(function(e) {
-		// 기본 액션 중지 (hyperlink 역할 안함)
-		e.preventDefault();
-		
-		//console.log("a요소 클릭됨");
-		
-		var actionForm = $("#actionForm");
-		
-		// form의 pageNum input의 값을 a 요소의 href값으로 변경
-		actionForm.find("[name=pageNum]").val($(this).attr("href"));
-		
-		// submit
-		actionForm.submit();
-	});
-	/* for문 대신에 each 함수 사용해서 timeBefore js에 값 보내주는 스크립트 */
-	$(".card-time-before").each(function(i, e) {
-		timeBefore(e);
-	})
-	
-});
-</script>        
-
 
 <title>중고마켓 </title>
 
@@ -115,27 +42,25 @@ $(document).ready(function() {
     <span class="carousel-control-next-icon" aria-hidden="true"></span>
     <span class="sr-only">Next</span>
   </a>
-</div>	
-	
-	
-	
-	
+</div>		
+		
+<div> <p>임시</p>
+	<c:url value="/board/write" var="writeUrl">	
+			<c:param name="pageNum" value="${cri.pageNum }"></c:param>
+			<c:param name="amount" value="${cri.amount }"></c:param>
+	</c:url>
+	<a href="${writeUrl }"><i class="fas fa-pen"></i> 글쓰기</a>
+<br>
+
+</div>		
 		
 <!-- 상품 목록 -->	
-<div class="d-flex justify-content-between p-2 m-3">
+<h4>오늘의 상품 추천 </h4>
 
-	<h4>오늘의 상품 추천 </h4>
-	
-	<sec:authorize access="isAuthenticated()">
-	  
-	 <a class="btn  btn-info" href="${appRoot }/market/write"><i class="fas fa-pen"></i>글쓰기 </a>
-	 
-	</sec:authorize>	
-</div>
 <div class="row row-cols-md-4">		  	
 <!-- 상품 -->
 <c:forEach items="${list }" var="market">
-<c:url value="/market/detail" var="getUrl">
+<c:url value="/board/getdetail" var="getUrl">
 <c:param name="mno" value="${market.mno }" />
 <c:param name="pageNum" value="${pageMaker.cri.pageNum }" />
 <c:param name="amount" value="${pageMaker.cri.amount }" />
@@ -144,21 +69,22 @@ $(document).ready(function() {
   <div class="col mb-4">
     <div class="card">
 
-	    	<img src="${imgRoot}market/${market.mno }/${market.fileName[0]}" class="card-img-top" >
-	   <%--  	<img src="${imgRoot }market/ 마켓번호르가져와서 그해당 게시물사진가져옴" class="card-img-top" > --%>
+	    	<img src="${appRoot }/resources/product/ma01.jpg" class="card-img-top" >
 	     	<div class="card-body">	
-	     		<input type="hidden" class="card-text" value="${market.mno }"/>
-	 	     	<div class="card-title" >${market.mtitle }</div>     
+	 	     	<div class="card-title">상품명: ${market.mtitle }</div>     
 	       	</div>
 	        
-	       <div class="form-group" id="card-detail">
-		        <span class="card-text"><fmt:formatNumber pattern="#,###원" value="${market.mprice }"/></span>
-				<!-- js파일에서 원하는 형태의 코드로 변경 후 elem 자체로 js로 보내기(로딩 스크립트 사용) -->
-		        <span class="card-time-before" style="float: right;">${market.mregdate.time }</span>
-		   </div>     
+	       <div class="form-group">
+		        <span class="card-text">가격: ${market.mprice }</span>
+		        <hr>
+		        <span class="card-date">게시 날짜: <fmt:formatDate pattern="yyyy-MM-dd" value="${market.mregdate }"/></span>
 	      		<hr>
-	       <div id="card-address">
-	       		<div class="card-add">${market.maddress }</div>
+	       		<div class="card-add">거래 지역: ${market.maddress }</div>
+	      		<hr>
+	       		<div class="card-add">상품 상태: ${market.mstate }</div>
+	      		<hr>
+	       		<div class="card-add">상품 상태: ${market.msold }</div>
+	       		
 	       </div>  
     </div>
   </div>
@@ -192,7 +118,7 @@ $(document).ready(function() {
 </nav>
 
 <div style="display: none;">
-	<form id="actionForm" action="${appRoot }/market/main" method="get">
+	<form id="actionForm" action="${appRoot }/board/list" method="get">
 		<input name="pageNum" value="${pageMaker.cri.pageNum }" /> 
 		<input name="amount" value="${pageMaker.cri.amount }" />
 	</form>
@@ -200,7 +126,7 @@ $(document).ready(function() {
 
 
 </div>
-</div>
+
 
 </body>
 </html>

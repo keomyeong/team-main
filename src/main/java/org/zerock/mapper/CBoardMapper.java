@@ -9,8 +9,6 @@ import org.zerock.domain.UserVO;
 public interface CBoardMapper {
 
 	
-	
-	
 	//게시물 저장 
 	public int cbinsertSelectKey(CBoardVO cboard);
 	

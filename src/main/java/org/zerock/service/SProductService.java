@@ -28,6 +28,9 @@ public interface SProductService {
 
 	// 리스트
 	public List<SProductVO> getList(Criteria cri);
+	
+	// 카테고리 리스트
+	public List<SProductVO> getCategory(Criteria cri);
 
 	// 총 페이지
 	public int getTotal(Criteria cri);

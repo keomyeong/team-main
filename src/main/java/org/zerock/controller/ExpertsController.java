@@ -26,8 +26,6 @@ import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
 
-
-
 @Controller
 @RequestMapping("/experts")
 @AllArgsConstructor
@@ -132,15 +130,11 @@ public class ExpertsController {
 		log.info("rezlist...");
 		log.info(principal.getName());
 			
-		if(rezservice.rezregister(ebrezvo)) {
-			
-			rttr.addFlashAttribute("rezmsg", " 예약 되었습니다!  ");           	
-			
+		if(rezservice.rezregister(ebrezvo)) {		
+			rttr.addFlashAttribute("rezmsg", " 예약 되었습니다!  ");           				
 		}else {
-			rttr.addFlashAttribute("rezmsg", " 예약 실패 입니다. ");
-			
-		}
-			
+			rttr.addFlashAttribute("rezmsg", " 예약 실패 입니다. ");			
+		}			
 			return "redirect:/experts/ehome";    
 	}
 	

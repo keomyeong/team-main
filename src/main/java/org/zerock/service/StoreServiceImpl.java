@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.zerock.domain.CartVO;
+import org.zerock.domain.Order_detailVO;
 import org.zerock.domain.WishVO;
 import org.zerock.mapper.StoreMapper;
 
@@ -81,6 +82,12 @@ public class StoreServiceImpl implements StoreService {
 	@Override
 	public void cwishdelete(long pno, String userid) {
 		mapper.cwishdelete(pno, userid);
+		
+	}
+	
+	@Override
+	public void orderDetail(Order_detailVO vo) {
+		mapper.orderDetail(vo);
 		
 	}
 

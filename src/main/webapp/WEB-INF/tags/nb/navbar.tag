@@ -77,7 +77,11 @@ $(function() {
 			      </div>
 			    </li>
 		     	 </sec:authorize>	
-		     	  
+		     	  <sec:authorize access="hasRole('ROLE_ADMIN')">
+					<li class="nav-item">
+						<a class="nav-link" href="${appRoot }/admin/home" tabindex="-1" aria-disabled="true"  >관리자페이지 </a>
+					</li>
+		     	 </sec:authorize>
 			</ul>
 		</nav>
 </div>
@@ -109,28 +113,36 @@ $(function() {
 <div class="navbar row justify-content-center p-0">
 	<nav class="navbar navbar-expand-sm navbar-light">
     <ul class="navbar-nav mr-auto text-center">
-      <li class="nav-item dropdown">
+    
+     <li class="nav-item dropdown">
+      	<a class="nav-link" href="${appRoot }/store/home"  role="button"  aria-expanded="false">
+          스토어 
+        </a>
+        
+      </li>
+     <%--  <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           스토어 
         </a>
-      <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
-          <li><a class="dropdown-item" href="${appRoot }/store/main">카테고리 </a></li>
+        <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+          <li><a class="dropdown-item" href="${appRoot }/store/home">카테고리 </a></li>
           <li><a class="dropdown-item" href="#">베스트 </a></li>
           <li><a class="dropdown-item" href="#">기획전 </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
-      </li>
+      </li> --%>
+      
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
           커뮤니티 
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
           <li><a class="dropdown-item" href="${appRoot}/community/cbhome">자유게시판  </a></li>
-          <li><a class="dropdown-item" href="${appRoot }/market/main">중고마켓  </a></li>
+          <li><a class="dropdown-item" href="${appRoot }/market/home">중고마켓  </a></li>
           <li><hr class="dropdown-divider"></li>
         </ul>
       </li>
-      <!-- 업체 서브 빠이빠이  -->
+      <!-- 업체 서브 -->
       <li class="nav-item dropdown">
       	<a class="nav-link" href="${appRoot }/experts/ehome"  role="button"  aria-expanded="false">
           업체 

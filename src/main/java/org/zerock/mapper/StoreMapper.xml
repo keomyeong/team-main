@@ -13,11 +13,7 @@
 		(#{userid}, #{pno}, #{cartstock})
 	</insert>
 
-	<insert id="insertSelectKey" useGeneratedKeys="true" keyProperty="pno" keyColumn="pno">
-		INSERT INTO S_product (category, userid, title, price, stock, delivery, detail, keyword)
-		VALUES (#{category}, #{userid}, #{title}, #{price}, #{stock}, #{delivery}, #{detail}, #{keyword})
-	</insert>
-	
+
 	<!-- 장바구니 목록 -->
 	<select id="listCart" resultType ="org.zerock.domain.CartVO">
 	

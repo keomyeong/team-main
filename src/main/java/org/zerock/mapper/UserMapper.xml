@@ -87,7 +87,7 @@
      </select>
      
  
-	 <!-- 재경 아이디 찾기 -->
+	 	 <!-- 아이디 찾기 -->
 		 <select id="findId" resultMap="userMap">
 			SELECT 
 			 *
@@ -95,7 +95,7 @@
 			WHERE username = #{userName} AND userphone = #{userPhone}
 		 </select>
 	
-		 <!-- 재경 비밀번호 찾기 -->
+		 <!-- 비밀번호 찾기 -->
 		 <select id="findPw" resultMap="userMap">
 			SELECT 
 			 *
@@ -103,7 +103,7 @@
 			WHERE userid = #{userid}
 		 </select>
 	
-		 <!-- 재경 비밀번호 변경 -->
+		 <!-- 비밀번호 변경 -->
 		 <update id="updatePw" >
 			UPDATE GH_User SET userpw = #{userpw} where userid = #{userid}
 		 </update>

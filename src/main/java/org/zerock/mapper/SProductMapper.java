@@ -30,12 +30,9 @@ public interface SProductMapper {
 	// 페이징 리스트
 	public List<SProductVO> getListWithPaging(Criteria cri);	
 	
+	// 카테고리 리스트
+	public List<SProductVO> getCateWithPaging(Criteria cri); 
+	
 
 }
 
-// 찜상품 등록
-// public int insertWish(WishlistVO wvo);
-
-//테이터 삭제
-//public int remove(MarketVO vo);
-//public int removeWish(MarketVO vo);

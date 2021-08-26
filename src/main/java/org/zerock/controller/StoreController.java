@@ -19,11 +19,15 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import org.zerock.domain.CartVO;
 import org.zerock.domain.Criteria;
+import org.zerock.domain.Order_detailVO;
 import org.zerock.domain.PageDTO;
 import org.zerock.domain.SProductVO;
+import org.zerock.domain.UserVO;
 import org.zerock.domain.WishVO;
 import org.zerock.service.SProductService;
 import org.zerock.service.StoreService;
+import org.zerock.service.UserService;
+
 import lombok.AllArgsConstructor;
 import lombok.Setter;
 import lombok.extern.log4j.Log4j;
@@ -39,8 +43,11 @@ public class StoreController {
 
 	@Setter(onMethod_ = @Autowired)
 	private StoreService stservice;
-
-	@GetMapping("/main")
+	
+	@Setter(onMethod_ = @Autowired)
+	private UserService userservice;
+	
+	@GetMapping("/home")
 	public void store(@ModelAttribute("cri") Criteria cri, Model model) {
 		log.info("store method");
 		int total = service.getTotal(cri);
@@ -51,6 +58,17 @@ public class StoreController {
 		model.addAttribute("pageMaker", new PageDTO(cri, total));
 
 	}
+	 @GetMapping("/home2")
+     public void category1(@ModelAttribute("cri") Criteria cri, Model model) {
+         log.info("store category method");
+   		int total = service.getTotal(cri);    
+    		
+ 		List<SProductVO> list = service.getCategory(cri);
+
+ 		model.addAttribute("list", list);
+ 		model.addAttribute("pageMaker", new PageDTO(cri, total));
+
+     }
 	//찜 목록
 	@GetMapping("/wish")
 	@PreAuthorize("isAuthenticated()")
@@ -148,11 +166,47 @@ public class StoreController {
 
 	}
 
-	@RequestMapping("/order")
-	public void order() {
+	@GetMapping("/order")
+    @PreAuthorize("isAuthenticated()")
+    public void cartorder(UserVO vo, Order_detailVO detail, Principal principal, Model model) {         
+        log.info(principal.getName());
+       
+        vo.setUserid(principal.getName());  
+        UserVO uservo = userservice.read(principal.getName());
+        model.addAttribute("user", uservo);
+        
+        log.info(uservo.getUserpoint());
+        
+        List<CartVO> orderlist = stservice.listCart(principal.getName());
+        model.addAttribute("order", orderlist);
+        
+        long sumMoney = stservice.sumMoney(principal.getName());
+        log.info(sumMoney);
+        detail.setSumMoney(sumMoney);
+        model.addAttribute("sumMoney", sumMoney);
+        
+    }
 
-	}
-
+    // 카트에서 구매하기
+    @PostMapping("/order")
+    @PreAuthorize("isAuthenticated()")
+    public void order(UserVO vo, Order_detailVO detail, Principal principal, Model model) {         
+        log.info(principal.getName());
+        
+        vo.setUserid(principal.getName());
+        UserVO uservo = userservice.read(principal.getName());
+        model.addAttribute("user", uservo);
+        
+        List<CartVO> orderlist = stservice.listCart(principal.getName());
+        model.addAttribute("order", orderlist);
+        
+        long sumMoney = stservice.sumMoney(principal.getName());
+        log.info(sumMoney);
+        detail.setSumMoney(sumMoney);
+        model.addAttribute("sumMoney", sumMoney);
+        
+        
+    }  
 	@GetMapping("/register")
 	public void register(@ModelAttribute("cri") Criteria cri) {
 
@@ -193,7 +247,7 @@ public class StoreController {
 		rttr.addAttribute("pageNum", cri.getPageNum());
 		rttr.addAttribute("amount", cri.getAmount());
 
-		return "redirect:/store/main";
+		return "redirect:/store/home";
 	}
 
 	@PostMapping("/remove")

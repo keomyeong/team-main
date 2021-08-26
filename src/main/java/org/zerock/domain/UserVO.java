@@ -18,8 +18,12 @@ public class UserVO {
 	private Date regdate;
 	private Date updateDate;
 	private boolean enabled;
-	
+	private long userpoint;
+
 	
 	//유저에있는권한들 
 	private List<AuthVO> authList;
+	
+	private AuthVO auth;
+
 }

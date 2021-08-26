@@ -6,9 +6,6 @@ import lombok.Data;
 
 @Data
 public class EBoardVO {
-
-	
-	
 	private long eno;
 	private String title;
 	private String content;
@@ -20,7 +17,5 @@ public class EBoardVO {
 	private Date regdate;
 	private Date updateDate;
 	private String fileName;
-	
-	
 	
 }

@@ -87,19 +87,13 @@
 							<input id="mprice" class="form-control" name="mprice">
 						</div>
 						
-						<!-- 은비 파일 -->
 						<div class="form-group">
 						<label for="market_file">파일</label>
 						<!-- type file로 지정, multiple 멀티플로 어셉트 이미지 -->
 						<input id="market_file" class="form-control" type="file" name="market_file" multiple="multiple" accept="image/*" onchange="setThumbnail(event);">
 						
 						</div>
-						
-						
-						
-						
-						
-						
+											
 						<div>파일 미리보기</div>
 						<div class="jumbotron jumbotron-fluid">
 					
@@ -110,9 +104,7 @@
 						  </div>
 						</div>
 						</div>
-						
-						
-						
+											
 						<!-- 파일 미리보기 스크립트 -->
 
 						<script> 
@@ -140,8 +132,6 @@
 							} 
 						</script>
 
-
-						
 
 						<div class="form-group">
 							<label for="maddress">거래지역</label>

@@ -87,6 +87,5 @@
 	<footer>
 		<nb:footer></nb:footer>
 	</footer>
-	</div>
 </body>
 </html>

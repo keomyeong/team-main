@@ -33,19 +33,15 @@ import lombok.extern.log4j.Log4j;
 @Log4j
 @RequestMapping("/main")
 
-//질문 : view -> main 폴더? /home 루트 ,@RequestMapping 검색해보기 
 public class MainController {
 	
-
 	@Setter(onMethod_ = @Autowired)
 	private UserService service;
-	
-	
+		
 	//메인 홈 
 	@RequestMapping("/home")
 	public void main() {
-		log.info("home method");
-		
+		log.info("home method");		
 	}
 	// 소개
 	@RequestMapping("/intd")
@@ -58,16 +54,13 @@ public class MainController {
 	public void login() {
 		log.info("login method");
 	}
-	
-	
+		
 	//약관동의  
 	@RequestMapping("/tos")
 	public void tos() {
 		log.info(" Terms of service method");
 	}
-	
-	
-	
+		
 	//회원가입 
 	@RequestMapping(value = "/signup", method = RequestMethod.GET)
 	public void signup() {
@@ -93,8 +86,6 @@ public class MainController {
 	@ResponseBody
 	public ResponseEntity<String> duplicate(String id) {
 		log.info("duplicate method");
-
-		// 서비스 일 시키고
 		UserVO vo = service.read(id);
 
 		if (vo == null) {
@@ -132,7 +123,7 @@ public class MainController {
 	}
 
 
-    //아이디 찾기 실행 log.info(principal.getName());
+    //아이디 찾기 실행
 	@RequestMapping(value="/findId", method=RequestMethod.POST)
 	public String findIdAction(Principal principal, UserVO vo, Model model) {
 
@@ -157,7 +148,6 @@ public class MainController {
 
 	@RequestMapping(value = "/findPw", method = RequestMethod.POST)
 	public String findPasswordAction(Principal principal, UserVO vo, Model model) throws Exception {
-
 		UserVO user2 = service.findPw(vo);
 
 		log.info(vo);
@@ -167,26 +157,20 @@ public class MainController {
 		if(user2 == null) {
 			model.addAttribute("check", 1);
 		}
-
-
 		// 가입된 이메일이 아니면 
 		else if(!vo.getUserEmail().equals(user2.getUserEmail())) {
 		  model.addAttribute("check", 2); }
 
 		// 임시 비밀번호 생성
 		else {
-
 			model.addAttribute("check", 0);
 			String pw = "";
 			for (int i = 0; i < 8; i++) {
 				pw += (char) ((Math.random() * 26) + 97);
 			}
 			vo.setUserpw(pw);
-
-
 		// 비밀번호 변경
 			service.updatePw(vo);
-
 			vo.setUserpw(pw);
 		// 비밀번호 변경 메일 발송
 			service.sendEmail(vo, "findpassword");	

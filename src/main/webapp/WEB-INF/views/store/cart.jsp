@@ -15,17 +15,10 @@
 <body>
 	<div class="container">
 		<nb:navbar></nb:navbar>			
-
-		<!-- jumbotron 
-		<div class="jumbotron">
-			<h1 class="display-4">Index Carts</h1>
-			<p class="lead">views/carts/index.jsp</p>
-			<hr class="my-4">
-			<p>장바구니 페이지</p>
-		</div> -->
 		<br>
 		<h2>장바구니</h2>
 		<br>
+		<form action="${appRoot }/store/order"" method="post">
 		<table class="table">
 			<thead class="thead-light">
 				<tr>
@@ -82,8 +75,7 @@
 			</tfoot>
 		</table>
 
-		<form action="#" method="post">
-			<!--${appRoot}/store/order  -->
+			
 			<%-- 	<input name = "cno" type = "hidden" value = "${cart.cno }"/> --%>
 			<button type="submit" class="btn btn-lg btn-block btn-primary">주문하기</button>
 		</form>

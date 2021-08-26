@@ -147,23 +147,4 @@
 
 
 
-<!--  	<insert id="insertWish">
-		INSERT INTO wishlist
-		(mwriter, mno)
-		VALUES
-		(#{mwriter}, #{mno})
-	</insert>  -->
-
-	<!--  상세페이지 정보 수정  -->
-<!-- 	<update id="update">
-	  UPDATE market
-	  SET 
-	      mtitle = #{mtitle},
-	      mprice = #{mprice},
-	      mdetail = #{mdetail},
-	      maddress = #{maddress},
-	      useradd = #{useradd},
-	  WHERE
-	      mwriter = #{mwriter}
-   </update> -->
 

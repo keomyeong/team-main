@@ -8,17 +8,10 @@ import lombok.ToString;
 @Setter
 @ToString
 public class EBCriteria {
-
-	
-	
-
 	private int pageNum;
 	private int amount;
 	
-//	private String type;
-//	private String keyword;
-//	
-	
+
 	public EBCriteria() {
 		this(1, 9);
 	}
@@ -33,13 +26,5 @@ public class EBCriteria {
 		return amount * (pageNum - 1);
 	}
 	
-//	public String[] getTypeArr() {
-//		if (type == null) {
-//			return new String[] {};
-//		} else {
-//			String[] types = type.split("");
-//			return types;
-//		}
-//	}
 	
 }

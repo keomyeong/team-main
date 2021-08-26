@@ -31,9 +31,6 @@ public class MessageController {
 	@Setter(onMethod_ = @Autowired)
 	private MessageService messageservice;
 	
-	
-	
-	
 	@GetMapping("/mgsend")
 	@PreAuthorize("isAuthenticated()")
 	public void listsend(Principal principal, MessageVO vo, Model model, @RequestParam(value = "page", defaultValue = "1")Integer page) {
@@ -101,7 +98,6 @@ public class MessageController {
 		} else {
 			rttr.addFlashAttribute("message", "수신자가 존재하지 않습니다. ");
         }
-       // 이부분이다 설명을 듣고 싶으면 mgreceive.jsp로 가라
         return "redirect:/message/mgreceive";           
     }
     @PostMapping("/delete")
